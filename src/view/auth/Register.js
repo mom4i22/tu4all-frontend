@@ -7,14 +7,6 @@ import { useTranslation } from "react-i18next";
 const Register = () => {
   const { t } = useTranslation();
 
-  const [nickname, setNickname] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [faculty, setFaculty] = useState("");
-  const [facultyNumber, setFacultyNumber] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
-  const [profilePic, setProfilePic] = useState(null);
   return (
     <div className="flex items-center justify-center h-screen">
       <Card
