@@ -1,21 +1,29 @@
-.centerY{
-margin: 50% 0px 50% 0px;
+.centerY {
+  margin: 50% 0px 50% 0px;
 }
-.centerXY{
-margin: 50% 50% 50% 50%;
-}
-
-.modalStyle  .ant-modal-content{
-background-color: #0B3E5D;
-}
-.modalStyle  .ant-modal-header{
-background-color: #0B3E5D;
-color:white
+.centerXY {
+  margin: 50% 50% 50% 50%;
 }
 
-.background{
- background:  url("../images/welcome_bg.jpg");
- background-size: cover;
- background-color: #cccccc;
+.modalStyle .ant-modal-content {
+  background-color: #0b3e5d;
+}
+.modalStyle .ant-modal-header {
+  background-color: #0b3e5d;
+  color: white;
+}
+
+.createPostModal .ant-modal-content {
+  background-color: #d3cac9;
+}
+.createPostModal .ant-modal-header {
+  background-color: #d3cac9;
+  color: #081e26 !important;
+}
+
+.background {
+  background: url("../images/welcome_bg.jpg");
+  background-size: cover;
+  background-color: #cccccc;
   background-repeat: no-repeat;
 }

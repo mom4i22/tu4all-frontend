@@ -1,23 +1,13 @@
-import {React, useState}  from 'react';
-import { useTranslation } from "react-i18next";
-import {Button} from 'antd'
-import '@styles/welcome.css'
-import  FeedPosts from '@components/FeedComponents/FeedPosts.js'
-import PageLayout from '@components/CommonComponents/Layout.js'
-import Post from '@components/FeedComponents/Post.js'
-import { useNavigate } from "react-router-dom";
+import PageLayout from "@components/CommonComponents/Layout.js";
+import FeedPosts from "@components/FeedComponents/FeedPosts.js";
+import "@styles/welcome.css";
 
-const Feed = ()=> {
-  const { t } = useTranslation();
-   const navigate = useNavigate();
-
-
+const Feed = () => {
   return (
-  <>
-
-    <PageLayout inner={FeedPosts}/>
+    <>
+      <PageLayout inner={FeedPosts} />
     </>
   );
-}
+};
 
 export default Feed;

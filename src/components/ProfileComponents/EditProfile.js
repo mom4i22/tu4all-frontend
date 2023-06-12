@@ -6,6 +6,7 @@ import ProfilePicUpload from "@components/CommonComponents/ProfilePicUpload";
 import moment from "moment";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { getAuthToken } from "store/auth";
 
 const EditProfile = () => {
   const { t } = useTranslation();
@@ -48,8 +49,9 @@ const EditProfile = () => {
     formData.append("profilePic", profilePicFile); // Add the profile picture file
 
     axios
-      .post(`http://localhost:8080/users/edit-user/${user.id}`, formData, {
+      .put(`http://localhost:8080/users/edit-user`, formData, {
         headers: {
+          Authorization: `Bearer ${getAuthToken()}`,
           "Content-Type": "multipart/form-data",
         },
       })
@@ -161,7 +163,7 @@ const EditProfile = () => {
             },
           ]}
         >
-          <Input onChange={facultyNumber} />
+          <Input onChange={changeFacNumber} />
         </Form.Item>
 
         <Form.Item

@@ -141,21 +141,20 @@ const ListComponent = (props) => {
                     >
                       {t("friends_unblock")}
                     </Button>
-
                   ) : (
-                  <>
-                    <Button
-                      className="btn btn-secondary border-customRed text-customRed font-semibold hover:bg-customRed hover:text-white"
-                      onClick={() => blockUser(item.email)}
-                    >
-                      {t("friends_block")}
-                    </Button>
-                    <Button
-                      className="btn btn-primary bg-customNavy text-white font-semibold"
-                      onClick={() => blockUser(item.email)}
-                    >
-                      {t("friends_remove")}
-                    </Button>
+                    <>
+                      <Button
+                        className="btn btn-secondary border-customRed text-customRed font-semibold hover:bg-customRed hover:text-white mr-3"
+                        onClick={() => blockUser(item.email)}
+                      >
+                        {t("friends_block")}
+                      </Button>
+                      <Button
+                        className="btn btn-primary bg-customNavy text-white font-semibold"
+                        onClick={() => blockUser(item.email)}
+                      >
+                        {t("friends_remove")}
+                      </Button>
                     </>
                   )}
                 </div>

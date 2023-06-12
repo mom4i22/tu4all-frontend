@@ -1,23 +1,37 @@
-import React  from 'react';
-import { Drawer,Button, Form, Input } from 'antd';
+import React from "react";
+import { Drawer, Button, Form, Input } from "antd";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { authenticate } from "@services/auth";
 
+import "react-toastify/dist/ReactToastify.css";
 const Login = (props) => {
- const { t } = useTranslation();
-const {show, toggleShow} = props
-const onFinish = (values) => {
-  console.log('Success:', values);
-};
-const onFinishFailed = (errorInfo) => {
-  console.log('Failed:', errorInfo);
-};
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const { show, toggleShow } = props;
+
+  const onFinish = (values) => {
+    authenticate(values.username, values.password).then((resp) => {
+      if (resp.status == 200) {
+        navigate("/feed");
+      }
+    });
+  };
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
   return (
     <>
-      <Drawer placement="right" open={show} onClose={toggleShow} className="bg-customBlue text-white" >
-      <div class="mt-1/2">
-
-        <Form
-        className="centerY"
+      <Drawer
+        placement="right"
+        open={show}
+        onClose={toggleShow}
+        className="bg-customBlue text-white"
+      >
+        <div class="mt-1/2">
+          <Form
+            className="centerY"
             name="basic"
             labelCol={{
               span: 8,
@@ -36,7 +50,9 @@ const onFinishFailed = (errorInfo) => {
             autoComplete="off"
           >
             <Form.Item
-              label={<label className="text-white">{t("common_username")}</label>}
+              label={
+                <label className="text-white">{t("common_username")}</label>
+              }
               name="username"
               rules={[
                 {
@@ -50,12 +66,14 @@ const onFinishFailed = (errorInfo) => {
 
             <Form.Item
               className="text-white"
-              label={<label className="text-white">{t("common_password")}</label>}
+              label={
+                <label className="text-white">{t("common_password")}</label>
+              }
               name="password"
               rules={[
                 {
                   required: true,
-                  message:  t("common_password_required"),
+                  message: t("common_password_required"),
                 },
               ]}
             >
@@ -73,7 +91,7 @@ const onFinishFailed = (errorInfo) => {
               </Button>
             </Form.Item>
           </Form>
-          </div>
+        </div>
       </Drawer>
     </>
   );

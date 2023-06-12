@@ -1,8 +1,23 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { HeartTwoTone, MessageTwoTone, SendOutlined, DeleteTwoTone } from "@ant-design/icons";
-import { Avatar, Card, Skeleton, Switch, Image, Input, Tooltip, Divider } from "antd";
+import {
+  HeartTwoTone,
+  MessageTwoTone,
+  SendOutlined,
+  DeleteTwoTone,
+} from "@ant-design/icons";
+import {
+  Avatar,
+  Card,
+  Skeleton,
+  Switch,
+  Image,
+  Input,
+  Tooltip,
+  Divider,
+  Popconfirm,
+} from "antd";
 import "@styles/welcome.css";
 const { TextArea } = Input;
 const { Meta } = Card;
@@ -21,12 +36,20 @@ const Comment = (props) => {
           title={<p className="text-sm">{comment.alias}</p>}
           description={<p>{comment.comment}</p>}
         />
-        {comment.alias === globalUser && props.canEdit === 'true' && (
-          <Tooltip title={t("posts_delete")} placement="bottom">
-            <Divider orientation="right">
+        {comment.alias === globalUser && props.canEdit === "true" && (
+          <Divider orientation="right">
+            <Popconfirm
+              placement="right"
+              title={t("posts_delete")}
+              description={t("posts_delete_comment_pop")}
+              // onConfirm={confirm}
+              // onCancel={cancel}
+              okText={t("common_yes")}
+              cancelText={t("common_no")}
+            >
               <DeleteTwoTone className="ml-3 pb-1/2" twoToneColor="#D80027" />
-            </Divider>
-          </Tooltip>
+            </Popconfirm>
+          </Divider>
         )}
       </div>
     ));

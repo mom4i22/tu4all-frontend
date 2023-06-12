@@ -7,22 +7,19 @@ import { initReactI18next } from "react-i18next";
 // We can localize to any language and any number of languages.
 
 const resources = {
-
   en: {
-
     translation: {
-
       welcome_msg1: " Technology is best when it brings people together. ",
       welcome_msg2: "- Matt Mullenweg, CEO of Automattic",
       welcome_login: "Login",
       welcome_signup: "Join TU4All!",
       welcome_forgot_password: "Forgot your password?",
 
-      common_username:"Username",
-      common_email:"E-mail",
-      common_password:"Password",
-      common_password_re:"Retype password",
-      common_change_password:"Change password",
+      common_username: "Username",
+      common_email: "E-mail",
+      common_password: "Password",
+      common_password_re: "Retype password",
+      common_change_password: "Change password",
       common_submit: "Submit",
       common_cancel: "Cancel",
       common_full_name: "Full name",
@@ -30,9 +27,11 @@ const resources = {
       common_faculty_num: "Faculty number",
       common_date_born: "Date of birth",
       common_profile_pic_upl: "Upload profile picture",
-      common_open_chat:"Open chat",
-      common_close_chat:"Close chat",
-      common_non_chat:"No chat available.",
+      common_open_chat: "Open chat",
+      common_close_chat: "Close chat",
+      common_non_chat: "No chat available.",
+      common_yes: "Yes",
+      common_no: "No",
 
       common_username_required: "Please input your username!",
       common_email_required: "Please input a valid email!",
@@ -41,7 +40,6 @@ const resources = {
       common_faculty_required: "Please input the faculty you're in!",
       common_fac_num_required: "Please input your faculty number!",
       common_date_required: "Please input your birth date!",
-
 
       nav_feed: "Feed",
       nav_friends: "Friends",
@@ -67,59 +65,59 @@ const resources = {
       friends_decline: "Decline request",
       friends_remove: "Remove friend",
 
-
       posts_save: "Save",
       posts_delete: "Delete",
+      posts_delete_comment_pop: "Are you sure you want to delete this comment?",
+      posts_delete_pop: "Are you sure you want to delete this post?",
       posts_discard: "Discard changes",
-
+      posts_create: "Create new post",
+      posts_desc: "Description",
+      posts_picture: "Upload picture",
+      posts_btnsubm: "Create",
     },
-
   },
 
   bg: {
-
     translation: {
-welcome_msg1: "Технологията е най-добра, когато свързва хората.",
-welcome_msg2: "- Мат Мъленуег, изпълнителен директор на Automattic",
-welcome_login: "Вход",
-welcome_signup: "Присъединете се към TU4All!",
-welcome_forgot_password: "Забравена парола?",
+      welcome_msg1: "Технологията е най-добра, когато свързва хората.",
+      welcome_msg2: "- Мат Мъленуег, изпълнителен директор на Automattic",
+      welcome_login: "Вход",
+      welcome_signup: "Присъединете се към TU4All!",
+      welcome_forgot_password: "Забравена парола?",
 
-common_username: "Потребителско име",
-common_email: "Имейл",
-common_password: "Парола",
-common_password_re: "Повтори паролата",
-common_change_password: "Промени паролата",
-common_submit: "Изпрати",
-common_cancel: "Отказ",
-common_full_name: "Пълно име",
-common_faculty: "Факултет",
-common_faculty_num: "Факултетен номер",
-common_date_born: "Дата на раждане",
-common_profile_pic_upl: "Качи снимка за профила",
-common_open_chat: "Отвори чат",
-common_close_chat: "Затвори чат",
-common_non_chat: "Няма наличен чат.",
+      common_username: "Потребителско име",
+      common_email: "Имейл",
+      common_password: "Парола",
+      common_password_re: "Повтори паролата",
+      common_change_password: "Промени паролата",
+      common_submit: "Изпрати",
+      common_cancel: "Отказ",
+      common_full_name: "Пълно име",
+      common_faculty: "Факултет",
+      common_faculty_num: "Факултетен номер",
+      common_date_born: "Дата на раждане",
+      common_profile_pic_upl: "Качи снимка за профила",
+      common_open_chat: "Отвори чат",
+      common_close_chat: "Затвори чат",
+      common_non_chat: "Няма наличен чат.",
 
-common_username_required: "Моля, въведете потребителското си име!",
-common_email_required: "Моля, въведете валиден имейл!",
-common_password_required: "Моля, въведете паролата си!",
-common_name_required: "Моля, въведете вашето име!",
-common_faculty_required: "Моля, въведете факултета, в който сте!",
-common_fac_num_required: "Моля, въведете факултетния си номер!",
-common_date_required: "Моля, въведете вашата дата на раждане!",
+      common_username_required: "Моля, въведете потребителското си име!",
+      common_email_required: "Моля, въведете валиден имейл!",
+      common_password_required: "Моля, въведете паролата си!",
+      common_name_required: "Моля, въведете вашето име!",
+      common_faculty_required: "Моля, въведете факултета, в който сте!",
+      common_fac_num_required: "Моля, въведете факултетния си номер!",
+      common_date_required: "Моля, въведете вашата дата на раждане!",
 
-nav_feed: "Публикации",
-nav_friends: "Приятели",
-nav_profile: "Профил",
-nav_posts: "Постове",
-nav_student_help: "Помощ за студенти",
-nav_faq: "ЧЗВ",
-nav_logout: "Изход"
+      nav_feed: "Публикации",
+      nav_friends: "Приятели",
+      nav_profile: "Профил",
+      nav_posts: "Постове",
+      nav_student_help: "Помощ за студенти",
+      nav_faq: "ЧЗВ",
+      nav_logout: "Изход",
     },
-
   },
-
 };
 
 i18next
@@ -133,11 +131,8 @@ i18next
     lng: "en",
 
     interpolation: {
-
       escapeValue: false,
-
     },
-
   });
 
 export default i18next;

@@ -55,7 +55,7 @@ const ProfilePicUpload = (props) => {
         {fileList.length >= 1 ? null : uploadButton}
       </Upload>
       <Modal
-        visible={previewOpen}
+        open={previewOpen}
         title={previewTitle}
         footer={null}
         onCancel={handleCancel}

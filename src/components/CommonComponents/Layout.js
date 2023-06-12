@@ -53,9 +53,8 @@ const PageLayout = (props) => {
         <Navbar />
       </Sider>
       <Layout className="flex flex-col">
-        <Header className="bg-transparent" >
-                        <UserNotifications />
-
+        <Header className="bg-transparent">
+          <UserNotifications />
         </Header>
         <Content className="flex-1 p-4">
           <div className="flex flex-col md:flex-row">
@@ -63,7 +62,11 @@ const PageLayout = (props) => {
               <Spin className="m-auto w-1/2" size="large" />
             ) : (
               <>
-              {Inner.name == "FeedPosts" ? (<Inner canEdit={props.canEdit}/>): (<Inner />)}
+                {Inner.name == "FeedPosts" ? (
+                  <Inner canEdit={props.canEdit} />
+                ) : (
+                  <Inner />
+                )}
                 <Chat />
               </>
             )}
