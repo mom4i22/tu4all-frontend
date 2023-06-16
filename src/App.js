@@ -8,6 +8,9 @@ import Feed from "./view/user/Feed.js";
 import Friends from "./view/user/Friends.js";
 import Posts from "./view/user/Posts.js";
 import Profile from "./view/user/Profile.js";
+import { AppProvider as PostsProvider } from "@services/PostsContext";
+import { AppProvider as CommentsProvider } from "@services/CommentsContext";
+import { AppProvider as FriendsProvider } from "@services/FriendsContext";
 
 const PrivateRoute = ({ path }) => {
   return getAuthToken() ? <Outlet /> : <Navigate to="/" replace />;
@@ -15,19 +18,23 @@ const PrivateRoute = ({ path }) => {
 
 const App = () => {
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<Welcome />} />
-        <Route path="/signup" element={<Register />} />
-        <Route element={<PrivateRoute />}>
-          <Route path="/feed" element={<Feed />} />
-          <Route path="/friends" element={<Friends />} />
-          <Route path="/posts" element={<Posts />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/faq" element={<FAQ />} />
-        </Route>
-      </Routes>
-    </>
+    <PostsProvider>
+      <CommentsProvider>
+        <FriendsProvider>
+          <Routes>
+            <Route path="/" element={<Welcome />} />
+            <Route path="/signup" element={<Register />} />
+            <Route element={<PrivateRoute />}>
+              <Route path="/feed" element={<Feed />} />
+              <Route path="/friends" element={<Friends />} />
+              <Route path="/posts" element={<Posts />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/faq" element={<FAQ />} />
+            </Route>
+          </Routes>
+        </FriendsProvider>
+      </CommentsProvider>
+    </PostsProvider>
   );
 };
 

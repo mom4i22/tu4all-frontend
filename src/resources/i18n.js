@@ -74,7 +74,18 @@ const resources = {
       posts_desc: "Description",
       posts_picture: "Upload picture",
       posts_btnsubm: "Create",
+      posts_edit_desc: "You can edit your post's description here..",
+      posts_comment: "Write your comment here",
+
+      error_feed_empty:
+        "Hmm...your feed seems to be empty. Find some friends and coome back later!",
+      error_comments_empty:
+        "It looks like there are no comments abvaialble..Be the first one to put your comment!",
     },
+
+    faq_post_heading: "How to create a post?",
+    faq_post_content:
+      "Navigate to 'Posts' page, then press the button 'Create a new post' and start typing your desired description as well as uploading your desied photo (optional). When fhinished, press 'Create' - your post will appear. ",
   },
 
   bg: {
@@ -88,34 +99,71 @@ const resources = {
       common_username: "Потребителско име",
       common_email: "Имейл",
       common_password: "Парола",
-      common_password_re: "Повтори паролата",
-      common_change_password: "Промени паролата",
+      common_password_re: "Повторете паролата",
+      common_change_password: "Промяна на паролата",
       common_submit: "Изпрати",
       common_cancel: "Отказ",
       common_full_name: "Пълно име",
       common_faculty: "Факултет",
       common_faculty_num: "Факултетен номер",
       common_date_born: "Дата на раждане",
-      common_profile_pic_upl: "Качи снимка за профила",
-      common_open_chat: "Отвори чат",
-      common_close_chat: "Затвори чат",
+      common_profile_pic_upl: "Качете снимка за профила",
+      common_open_chat: "Отворете чат",
+      common_close_chat: "Затворете чат",
       common_non_chat: "Няма наличен чат.",
+      common_yes: "Да",
+      common_no: "Не",
 
-      common_username_required: "Моля, въведете потребителското си име!",
+      common_username_required: "Моля, въведете потребителско име!",
       common_email_required: "Моля, въведете валиден имейл!",
-      common_password_required: "Моля, въведете паролата си!",
-      common_name_required: "Моля, въведете вашето име!",
+      common_password_required: "Моля, въведете парола!",
+      common_name_required: "Моля, въведете име!",
       common_faculty_required: "Моля, въведете факултета, в който сте!",
       common_fac_num_required: "Моля, въведете факултетния си номер!",
-      common_date_required: "Моля, въведете вашата дата на раждане!",
+      common_date_required: "Моля, въведете датата на раждане!",
 
       nav_feed: "Публикации",
       nav_friends: "Приятели",
       nav_profile: "Профил",
-      nav_posts: "Постове",
-      nav_student_help: "Помощ за студенти",
+      nav_posts: "Мои публикации",
+      nav_student_help: "Студентска помощ",
       nav_faq: "ЧЗВ",
       nav_logout: "Изход",
+
+      notifications_fr_req: "Заявки за приятелство",
+      notifications_likes: "Нови харесвания",
+      notifications_comm: "Нови коментари",
+
+      friends_req: "Заявки за приятелство",
+      friends_search: "Търсене на потребители",
+      friends_my_friends: "Моите приятели",
+      friends_type: "Търсете...",
+      friends_block: "Блокирай потребител",
+      friends_unblock: "Отблокирай потребител",
+      friends_send_req: "Изпрати заявка",
+      friends_unsend_req: "Отмени заявката",
+      friends_accept: "Приеми заявката",
+      friends_decline: "Отклони заявката",
+      friends_remove: "Премахни от приятели",
+
+      posts_save: "Запази",
+      posts_delete: "Изтрий",
+      posts_delete_comment_pop:
+        "Сигурни ли сте, че искате да изтриете този коментар?",
+      posts_delete_pop:
+        "Сигурни ли сте, че искате да изтриете тази публикация?",
+      posts_discard: "Отхвърли промените",
+      posts_create: "Създай нова публикация",
+      posts_desc: "Описание",
+      posts_picture: "Качи снимка",
+      posts_btnsubm: "Създай",
+      posts_edit_desc:
+        "Тук можете да редактирате описанието на публикацията си..",
+
+      error_feed_empty:
+        "Хм... изглежда вашата стена е празна. Намерете приятели и се върнете по-късно!",
+      error_comments_empty:
+        "Изглежда няма налични коментари.. Бъдете първият, който поставя коментар!",
     },
   },
 };

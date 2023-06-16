@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Avatar, Divider, List, Skeleton, Input, Button } from "antd";
-import InfiniteScroll from "react-infinite-scroll-component";
+import FriendsContext from "@services/FriendsContext";
+import { Avatar, Button, Divider, Input, List, Skeleton } from "antd";
+import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-
+import InfiniteScroll from "react-infinite-scroll-component";
+import { getUserId } from "store/auth";
+import { base64ToFile } from "store/helpers";
 const ListComponent = (props) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
@@ -10,45 +12,88 @@ const ListComponent = (props) => {
   const [requested, setRequested] = useState([]);
   const [blocked, setBlocked] = useState([]);
   const [friends, setFriends] = useState([]);
+  const [reloadComponent, setReloadComponent] = useState(false); // State variable for triggering component reload
+
+  const {
+    getPeople,
+    getFriends,
+    getRequests,
+    people,
+    sendFriendRequest,
+    myFriends,
+    requests,
+    acceptFriendRequest,
+    declineFriendRequest,
+    removeFriendRequest,
+  } = useContext(FriendsContext);
+
   const { t } = useTranslation();
 
   const loadMoreData = () => {
     if (loading) {
       return;
     }
-
     setLoading(true);
-
-    fetch(
-      "https://randomuser.me/api/?results=10&inc=name,gender,email,nat,picture&noinfo"
-    )
-      .then((res) => res.json())
-      .then((body) => {
-        setData([...data, ...body.results]);
-        setResults([...data, ...body.results]);
-        setLoading(false);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
   };
 
   useEffect(() => {
     loadMoreData();
-  }, [props.tab]);
 
+    if (props.tab == "1") {
+      getPeople().then((resp) => {
+        setData(resp);
+        setResults(resp);
+      });
+    } else if (props.tab == "2") {
+      loadFriends();
+    } else {
+      loadRequests();
+    }
+    setLoading(false);
+  }, [props.tab, reloadComponent]);
+
+  const loadFriends = () => {
+    let arr = [];
+    getFriends().then((resp) => {
+      if (Object.keys(resp).length > 0 && resp[0] != null) {
+        resp.map((rel) => {
+          if (rel.userId != getUserId()) {
+            arr.push(rel);
+          }
+        });
+      }
+    });
+    setData(arr);
+    setResults(arr);
+  };
+
+  const loadRequests = () => {
+    let arr = [];
+    getRequests().then((resp) => {
+      if (Object.keys(resp).length > 0) {
+        resp.map((rel) => {
+          if (rel.userId != getUserId()) {
+            arr.push(rel);
+          }
+        });
+      }
+    });
+    setData(arr);
+    setResults(arr);
+  };
   const search = (event) => {
     const searchWords = event.target.value;
     const res = data.filter((d) => {
-      const name = d.name.first.toLowerCase();
+      const name = d.alias.toLowerCase();
       return name.startsWith(searchWords.toLowerCase());
     });
 
     setResults(res ? res : data);
   };
 
-  const sendFriendRequest = (email) => {
-    setRequested((prevReq) => [...prevReq, email]);
+  const sendFriendRequestHandler = (id) => {
+    sendFriendRequest(id);
+    getPeople().then(() => setReloadComponent((prev) => !prev));
   };
 
   const unsendFriendRequest = (email) => {
@@ -59,20 +104,34 @@ const ListComponent = (props) => {
     setBlocked((prevBlocked) => [...prevBlocked, email]);
   };
 
+  const removeUser = (id) => {
+    removeFriendRequest(id);
+    getPeople();
+    getFriends();
+    getRequests();
+    setReloadComponent((prev) => !prev); // Trigger component reload
+  };
+
   const unblockUser = (email) => {
     setBlocked((prevBlocked) =>
       prevBlocked.filter((friend) => friend !== email)
     );
   };
 
-  const acceptRequest = (email) => {
-    setFriends((prevFriends) => [...prevFriends, email]);
+  const acceptRequest = (id) => {
+    acceptFriendRequest(id);
+    getPeople();
+    getFriends();
+    getRequests();
+    setReloadComponent((prev) => !prev); // Trigger component reload
   };
 
-  const declineRequest = (email) => {
-    setFriends((prevFriends) =>
-      prevFriends.filter((friend) => friend !== email)
-    );
+  const declineRequest = (id) => {
+    declineFriendRequest(id);
+    getPeople();
+    getFriends();
+    getRequests();
+    setReloadComponent((prev) => !prev); // Trigger component reload
   };
 
   const isUserRequested = (email) => {
@@ -110,15 +169,17 @@ const ListComponent = (props) => {
       <InfiniteScroll
         dataLength={results.length}
         next={loadMoreData}
-        hasMore={results.length < 50}
+        hasMore={results.length < 1}
         loader={
-          <Skeleton
-            avatar
-            paragraph={{
-              rows: 1,
-            }}
-            active
-          />
+          results.length > 0 && (
+            <Skeleton
+              avatar
+              paragraph={{
+                rows: 1,
+              }}
+              active
+            />
+          )
         }
         endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
         scrollableTarget="scrollableDiv"
@@ -128,8 +189,12 @@ const ListComponent = (props) => {
           renderItem={(item) => (
             <List.Item key={item.email}>
               <List.Item.Meta
-                avatar={<Avatar src={item.picture.large} />}
-                title={<a href="https://ant.design">{item.name.first}</a>}
+                avatar={
+                  <Avatar
+                    src={URL.createObjectURL(base64ToFile(item.profilePicture))}
+                  />
+                }
+                title={<a href="https://ant.design">{item.alias}</a>}
                 description={item.email}
               />
               {props.tab == 2 && (
@@ -151,7 +216,7 @@ const ListComponent = (props) => {
                       </Button>
                       <Button
                         className="btn btn-primary bg-customNavy text-white font-semibold"
-                        onClick={() => blockUser(item.email)}
+                        onClick={() => removeUser(item.userId)}
                       >
                         {t("friends_remove")}
                       </Button>
@@ -171,7 +236,7 @@ const ListComponent = (props) => {
                   ) : (
                     <Button
                       className="btn btn-primary bg-customBlue/80 text-white font-semibold"
-                      onClick={() => sendFriendRequest(item.email)}
+                      onClick={() => sendFriendRequestHandler(item.userId)}
                     >
                       {t("friends_send_req")}
                     </Button>
@@ -184,13 +249,13 @@ const ListComponent = (props) => {
                     <>
                       <Button
                         className="btn btn-primary border-green-500 bg-green-500 text-white font-semibold hover:bg-green-500 hover:text-white mr-3"
-                        onClick={() => acceptRequest(item.email)}
+                        onClick={() => acceptRequest(item.userId)}
                       >
                         {t("friends_accept")}
                       </Button>
                       <Button
                         className="btn btn-secondary bg-customRed hover:border-customRed text-white font-semibold"
-                        onClick={() => declineRequest(item.email)}
+                        onClick={() => declineRequest(item.userId)}
                       >
                         {t("friends_decline")}
                       </Button>

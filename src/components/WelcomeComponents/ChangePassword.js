@@ -3,6 +3,7 @@ import FormItem from "antd/es/form/FormItem";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
+import { getUserId } from "store/auth";
 
 const ChangePasswordModal = (props) => {
   const { show, toggleShow } = props;
@@ -20,13 +21,16 @@ const ChangePasswordModal = (props) => {
     formData.append("password", password);
     if (password === retypedPassword) {
       axios
-        .put(`http://localhost:8080/users/change-password/${email}`, formData)
+        .put(
+          `http://localhost:8080/users/change-password/${getUserId()}`,
+          formData
+        )
         .then((response) => {
-          console.log(response.data); // Handle success response
+          console.log(response.data);
           alert(response.data);
         })
         .catch((error) => {
-          console.error(error); // Handle error
+          console.error(error);
           alert(
             `${error}. Please try again! If there is still a problem, wait a bit and refresh and then try again!`
           );

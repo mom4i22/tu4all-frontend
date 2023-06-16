@@ -14,22 +14,34 @@ import {
 import "@styles/welcome.css";
 import en from "@images/en.png";
 import bg from "@images/bg.png";
+import {
+  getUserName,
+  getUserPic,
+  getLikes,
+  getNewComments,
+} from "@services/auth";
+import { base64ToFile } from "@services/helpers";
 const { TextArea } = Input;
 const { Meta } = Card;
 
 const UserNotifications = (props) => {
   const { t, i18n } = useTranslation();
-  let currentLang = "en";
-  let likesCount = 23;
-  let friendRequestCount = 12;
+  const profilePic = getUserPic(),
+    name = getUserName();
+
   const currentLangTern = () => {
     return i18n.language == "en" ? "bg" : "en";
   };
+
   const changeLanguageHandler = () => {
     currentLang = currentLangTern();
     i18n.changeLanguage(currentLang);
   };
-  const navigate = useNavigate();
+
+  let currentLang = "en";
+  let likesCount = getLikes();
+  let commentsCount = getNewComments();
+
   return (
     <>
       <div className="fixed right-8 ml-12 w-1/4 justify-items-end ">
@@ -39,32 +51,32 @@ const UserNotifications = (props) => {
               avatar={
                 <div className="flex justify-end">
                   <Tooltip title={t("notifications_fr_req")} placement="left">
-                    <Badge count={99} overflowCount={10} className="mr-4">
+                    <Badge count={5} overflowCount={10} className="mr-4">
                       <Avatar
-                        src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                        src={URL.createObjectURL(base64ToFile(profilePic))}
                         size={64}
                       />
                     </Badge>
                   </Tooltip>
                 </div>
               }
-              title={<strong className="text-right">Marina Yordanova</strong>}
+              title={<strong className="text-right">{name}</strong>}
               description={
                 <div>
                   <Tooltip title={t("notifications_likes")} placement="bottom">
                     <Badge
-                      count={likesCount ? 11 : 0}
+                      count={likesCount}
                       showZero
                       color="#99BB33"
-                      className="mr-2"
+                      className="mr-2 cursor-pointer"
                     />
                   </Tooltip>
                   <Tooltip title={t("notifications_comm")} placement="bottom">
                     <Badge
-                      count={friendRequestCount ? 25 : 0}
+                      count={commentsCount}
                       showZero
                       color="#faad14"
-                      className="mr-2"
+                      className="mr-2 cursor-pointer"
                     />
                   </Tooltip>
                   <Switch

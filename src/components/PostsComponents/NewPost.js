@@ -1,18 +1,16 @@
 import ProfilePicUpload from "@components/CommonComponents/ProfilePicUpload";
+import PostsContext from "@services/PostsContext";
 import "@styles/welcome.css";
 import { Button, Card, Form, Input, Modal } from "antd";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
-import { createPost } from "@services/posts";
 const { TextArea } = Input;
 const { Meta } = Card;
 
 const NewPost = (props) => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const { show, toggleShow } = props;
-
+  const { createPost, getUserPosts } = useContext(PostsContext);
   const [description, setDescription] = useState(props.description);
   const [profilePicFile, setProfilePicFile] = useState(null);
 
@@ -25,12 +23,13 @@ const NewPost = (props) => {
 
   const submitHandler = (e) => {
     createPost(description, profilePicFile).then((resp) => {
-      alert(resp);
-      if (resp.status == 200) {
-        navigate("/posts");
+      if (resp.status === 200) {
+        getUserPosts();
+        setDescription("");
+        setProfilePicFile(null);
+        toggleShow();
       }
     });
-    toggleShow();
   };
   return (
     <>
@@ -59,7 +58,7 @@ const NewPost = (props) => {
         ]}
       >
         <Form className="mx-auto w-4/5">
-          <Form.Item className="text-customNavy" name="desc">
+          <Form.Item className="text-customNavy" name="description">
             <TextArea
               onChange={handleDescriptionChange}
               placeholder={t("posts_desc")}
