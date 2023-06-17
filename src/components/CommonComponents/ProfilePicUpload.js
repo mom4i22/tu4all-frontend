@@ -31,9 +31,14 @@ const ProfilePicUpload = (props) => {
 
   const handleChange = ({ fileList }) => {
     setFileList(fileList);
-    if (fileList.length > 0) {
+    if (fileList && fileList.length > 0) {
       props.handleProfilePicUpload(fileList[0].originFileObj);
     }
+  };
+
+  const handleRemove = () => {
+    setFileList(null);
+    props.handleProfilePicRemove();
   };
 
   const uploadButton = (
@@ -51,8 +56,9 @@ const ProfilePicUpload = (props) => {
         fileList={fileList}
         onPreview={handlePreview}
         onChange={handleChange}
+        onRemove={handleRemove}
       >
-        {fileList.length >= 1 ? null : uploadButton}
+        {fileList && fileList.length >= 1 ? null : uploadButton}
       </Upload>
       <Modal
         open={previewOpen}

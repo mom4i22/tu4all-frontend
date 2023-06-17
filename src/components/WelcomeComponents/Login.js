@@ -29,7 +29,7 @@ const Login = (props) => {
         onClose={toggleShow}
         className="bg-customBlue text-white"
       >
-        <div class="mt-1/2">
+        <div className="mt-1/2">
           <Form
             className="centerY"
             name="basic"

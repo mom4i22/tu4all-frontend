@@ -1,8 +1,8 @@
-import React, { createContext, useState, useEffect } from "react";
-import { getUserId, getAuthToken } from "./auth";
+import { getAuthToken, getUserId } from "@services/auth";
+import { createContext, useState } from "react";
 
+import { customNotifications } from "@services/helpers";
 import axios from "axios";
-import { customNotifications } from "./helpers";
 
 const PostsContext = createContext();
 
@@ -149,11 +149,6 @@ export const AppProvider = ({ children }) => {
       return error;
     }
   };
-
-  useEffect(() => {
-    getUserPosts();
-    getTimelinePosts();
-  }, []);
 
   const contextValue = {
     posts,

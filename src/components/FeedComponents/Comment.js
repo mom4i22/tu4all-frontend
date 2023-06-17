@@ -10,7 +10,7 @@ import { Avatar, Card, Divider, Input, Popconfirm, Result } from "antd";
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { getUserAlias } from "store/auth";
+import { getUserAlias } from "@services/auth";
 const { TextArea } = Input;
 const { Meta } = Card;
 
@@ -81,7 +81,6 @@ const Comment = (props) => {
                 title={t("posts_delete")}
                 description={t("posts_delete_comment_pop")}
                 onConfirm={() => deleteCommentHandler(comment.commentId)}
-                // onCancel={cancel}
                 okText={t("common_yes")}
                 cancelText={t("common_no")}
               >

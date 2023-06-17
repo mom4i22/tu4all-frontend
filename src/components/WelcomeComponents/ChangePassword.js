@@ -1,9 +1,8 @@
-import { Button, Modal, Form, Input } from "antd";
-import FormItem from "antd/es/form/FormItem";
+import { getUserId } from "@services/auth";
+import { Button, Form, Input, Modal } from "antd";
+import axios from "axios";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import axios from "axios";
-import { getUserId } from "store/auth";
 
 const ChangePasswordModal = (props) => {
   const { show, toggleShow } = props;

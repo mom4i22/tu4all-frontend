@@ -3,8 +3,8 @@ import { Avatar, Button, Divider, Input, List, Skeleton } from "antd";
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { getUserId } from "store/auth";
-import { base64ToFile } from "store/helpers";
+import { getUserId } from "@services/auth";
+import { base64ToFile } from "@services/helpers";
 const ListComponent = (props) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
@@ -18,10 +18,7 @@ const ListComponent = (props) => {
     getPeople,
     getFriends,
     getRequests,
-    people,
     sendFriendRequest,
-    myFriends,
-    requests,
     acceptFriendRequest,
     declineFriendRequest,
     removeFriendRequest,
@@ -93,6 +90,8 @@ const ListComponent = (props) => {
 
   const sendFriendRequestHandler = (id) => {
     sendFriendRequest(id);
+    getPeople();
+    getFriends();
     getPeople().then(() => setReloadComponent((prev) => !prev));
   };
 
@@ -107,9 +106,8 @@ const ListComponent = (props) => {
   const removeUser = (id) => {
     removeFriendRequest(id);
     getPeople();
-    getFriends();
     getRequests();
-    setReloadComponent((prev) => !prev); // Trigger component reload
+    getFriends().then(() => setReloadComponent((prev) => !prev));
   };
 
   const unblockUser = (email) => {
@@ -122,16 +120,14 @@ const ListComponent = (props) => {
     acceptFriendRequest(id);
     getPeople();
     getFriends();
-    getRequests();
-    setReloadComponent((prev) => !prev); // Trigger component reload
+    getRequests().then(() => setReloadComponent((prev) => !prev));
   };
 
   const declineRequest = (id) => {
     declineFriendRequest(id);
     getPeople();
     getFriends();
-    getRequests();
-    setReloadComponent((prev) => !prev); // Trigger component reload
+    getRequests().then(() => setReloadComponent((prev) => !prev));
   };
 
   const isUserRequested = (email) => {

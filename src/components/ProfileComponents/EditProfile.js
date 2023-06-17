@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Form, Input, Button, DatePicker, Select, Card, Image } from "antd";
 import { faculties } from "@resources/constants.js";
 import { useTranslation } from "react-i18next";
@@ -7,10 +7,11 @@ import moment from "moment";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { getAuthToken, getUserId } from "store/auth";
+import UserContext from "@services/UserContext";
+import { base64ToFile } from "@services/helpers";
 
 const EditProfile = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
 
   const [fullName, setFullName] = useState("");
   const [nickname, setNickname] = useState("");
@@ -18,6 +19,7 @@ const EditProfile = () => {
   const [facultyNumber, setFacultyNumber] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [profilePicFile, setProfilePicFile] = useState(null);
+  const { editUser, getUser } = useContext(UserContext);
 
   const changeName = (e) => setFullName(e.target.value);
   const changeFaculty = (value) => {
@@ -30,34 +32,26 @@ const EditProfile = () => {
     setProfilePicFile(picture);
   };
 
-  const submitHandler = () => {
-    const formData = new FormData();
-    formData.append("alias", nickname); // Convert user object to string and append to FormData
-    formData.append("name", fullName);
-    formData.append("dateOfBirth", moment(dateOfBirth).format("YYYY-MM-DD"));
-    formData.append("faculty", faculty);
-    formData.append("facultyNumber", facultyNumber);
-    formData.append("profilePic", profilePicFile); // Add the profile picture file
+  const handleProfilePicRemove = () => {
+    setProfilePicFile(null);
+  };
 
-    axios
-      .put(`http://localhost:8080/users/edit-user/${getUserId()}`, formData, {
-        headers: {
-          Authorization: `Bearer ${getAuthToken()}`,
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((response) => {
-        console.log(response.data); // Handle success response
-        alert(response.data);
-      })
-      .catch((error) => {
-        console.error(error); // Handle error
-        alert(`${error}. Do not leave any fields empty!`);
-      });
+  useEffect(() => {
+    getUser().then((user) => {
+      setFullName(user.name);
+      setNickname(user.alias);
+      setDateOfBirth(user.dateOfBirth);
+      setFaculty(user.faculty);
+      setFacultyNumber(user.facultyNumber);
+    });
+  }, []);
+
+  const submitHandler = () => {
+    editUser();
   };
 
   return (
-    <div className="w-full flex my-auto">
+    <div className="w-full flex mt-40">
       <div className="w-2/5">
         <Form
           labelCol={{
@@ -138,7 +132,10 @@ const EditProfile = () => {
           </Form.Item>
 
           <Form.Item label={t("common_profile_pic_upl")}>
-            <ProfilePicUpload handleProfilePicUpload={handleProfilePicUpload} />
+            <ProfilePicUpload
+              handleProfilePicUpload={handleProfilePicUpload}
+              handleProfilePicRemove={handleProfilePicRemove}
+            />
           </Form.Item>
           <Form.Item
             className="text-center"
@@ -146,7 +143,8 @@ const EditProfile = () => {
           >
             <Button
               type="primary"
-              className=" bg-customNavy"
+              size="large"
+              className="bg-customRed flex justify-end"
               onClick={submitHandler}
             >
               {t("common_submit")}

@@ -2,6 +2,7 @@ import {
   FileOutlined,
   PieChartOutlined,
   UserOutlined,
+  GithubOutlined,
 } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu, theme, Spin } from "antd";
 import { useState, useEffect } from "react";
@@ -72,8 +73,14 @@ const PageLayout = (props) => {
             )}
           </div>
         </Content>
-        <Footer className="text-center">
-          Ant Design ©2023 Created by Ant UED
+        <Footer className="text-center font-semibold text-xs">
+          <p>{t("common_copyright1")}</p>
+          <p>{t("common_copyright2")}</p>
+          <p>
+            <a href="https://github.com/mom4i22" target="_blank">
+              <GithubOutlined />
+            </a>
+          </p>
         </Footer>
       </Layout>
     </Layout>

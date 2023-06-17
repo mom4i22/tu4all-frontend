@@ -2,10 +2,6 @@ import i18next from "i18next";
 
 import { initReactI18next } from "react-i18next";
 
-// "Inline" English and Arabic translations.
-
-// We can localize to any language and any number of languages.
-
 const resources = {
   en: {
     translation: {
@@ -32,6 +28,9 @@ const resources = {
       common_non_chat: "No chat available.",
       common_yes: "Yes",
       common_no: "No",
+      common_copyright1: "© 2023 Momchil Trenchev. All rights reserved.",
+      common_copyright2: "CSE (Coumputer and Software Engineering), 121210098",
+      common_copyright3: "Link to Github",
 
       common_username_required: "Please input your username!",
       common_email_required: "Please input a valid email!",

@@ -18,7 +18,7 @@ const RegisterForm = () => {
   const [faculty, setFaculty] = useState("");
   const [facultyNumber, setFacultyNumber] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
-  const [profilePicFile, setProfilePicFile] = useState(null); // Initialize with null
+  const [profilePicFile, setProfilePicFile] = useState(null);
 
   const changeName = (e) => setFullName(e.target.value);
   const changeFaculty = (value) => {

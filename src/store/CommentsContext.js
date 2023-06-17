@@ -1,13 +1,11 @@
-import React, { createContext, useState, useEffect } from "react";
-import { getUserId, getAuthToken } from "./auth";
-import { customNotifications } from "./helpers";
+import { getAuthToken, getUserId } from "@services/auth";
+import { customNotifications } from "@services/helpers";
 import axios from "axios";
+import { createContext, useEffect } from "react";
 
 const CommentsContext = createContext();
 
 export const AppProvider = ({ children }) => {
-  const [comments, setComments] = useState([]);
-
   const createComment = async (postId, text) => {
     const formData = new FormData();
     formData.append("postId", postId);
@@ -70,7 +68,6 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {}, []);
 
   const contextValue = {
-    comments,
     createComment,
     deleteComment,
     getComments,

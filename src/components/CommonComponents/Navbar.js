@@ -83,12 +83,6 @@ const Navbar = () => {
       "11",
       <LogoutOutlined />
     ),
-
-    //  getItem('Navigation Two', 'sub2', <AppstoreOutlined />, [
-    //    getItem('Option 9', '9'),
-    //    getItem('Option 10', '10'),
-    //    getItem('Submenu', 'sub3', null, [getItem('Option 11', '11'), getItem('Option 12', '12')]),
-    //  ]),
   ];
   return (
     <>

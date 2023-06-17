@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
-import { getUserId, getAuthToken } from "./auth";
+import { customNotifications } from "@services/helpers";
+import { getUserId, getAuthToken } from "@services/auth";
 import axios from "axios";
 
 const FriendsContext = createContext();
@@ -23,7 +24,8 @@ export const AppProvider = ({ children }) => {
       setPeople(response.data);
       return response.data;
     } catch (error) {
-      console.log(error);
+      customNotifications("error", error.code, error.message);
+      return error;
     }
   };
 
@@ -41,7 +43,8 @@ export const AppProvider = ({ children }) => {
       setMyFriends(response.data);
       return response.data;
     } catch (error) {
-      console.log(error);
+      customNotifications("error", error.code, error.message);
+      return error;
     }
   };
 
@@ -59,7 +62,8 @@ export const AppProvider = ({ children }) => {
       setRequests(response.data);
       return response.data;
     } catch (error) {
-      console.log(error);
+      customNotifications("error", error.code, error.message);
+      return error;
     }
   };
 
@@ -80,8 +84,8 @@ export const AppProvider = ({ children }) => {
       );
       return response;
     } catch (error) {
-      console.error("Error sending friend request:", error);
-      throw error; // Rethrow the error or handle it as needed
+      customNotifications("error", error.code, error.message);
+      return error;
     }
   };
 
@@ -102,8 +106,8 @@ export const AppProvider = ({ children }) => {
       );
       return response;
     } catch (error) {
-      console.error("Error accepting friend request:", error);
-      throw error; // Rethrow the error or handle it as needed
+      customNotifications("error", error.code, error.message);
+      return error;
     }
   };
 
@@ -124,8 +128,8 @@ export const AppProvider = ({ children }) => {
       );
       return response;
     } catch (error) {
-      console.error("Error declining friend request:", error);
-      throw error; // Rethrow the error or handle it as needed
+      customNotifications("error", error.code, error.message);
+      return error;
     }
   };
 
@@ -146,8 +150,8 @@ export const AppProvider = ({ children }) => {
       );
       return response;
     } catch (error) {
-      console.error("Error removing friend:", error);
-      throw error; // Rethrow the error or handle it as needed
+      customNotifications("error", error.code, error.message);
+      return error;
     }
   };
 
@@ -168,8 +172,8 @@ export const AppProvider = ({ children }) => {
       );
       return response;
     } catch (error) {
-      console.error("Error blocking user:", error);
-      throw error; // Rethrow the error or handle it as needed
+      customNotifications("error", error.code, error.message);
+      return error;
     }
   };
 

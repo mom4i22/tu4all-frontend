@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import { customNotifications } from "@services/helpers";
 export const getAuthToken = () => {
   return sessionStorage.getItem("authToken");
 };
@@ -60,7 +60,7 @@ export const clearStorage = () => {
 
 export const authenticate = async (email, password) => {
   const formData = new FormData();
-  formData.append("email", email); // Convert user object to string and append to FormData
+  formData.append("email", email);
   formData.append("password", password);
   try {
     const response = await axios.post(
@@ -82,10 +82,7 @@ export const authenticate = async (email, password) => {
     setNewComments(response.data.commentNotifications);
     return response;
   } catch (error) {
-    console.error(error);
-    alert(
-      `${error}. Please try creating a user again later or with different data!`
-    );
+    customNotifications("error", error.code, error.message);
     return error;
   }
 };
@@ -120,13 +117,10 @@ export const register = async (
         },
       }
     );
-    console.log(response.data); // Handle success response
+    customNotifications("success", response.status, response.data);
     return response;
   } catch (error) {
-    console.error(error); // Handle error
-    alert(
-      `${error}. Please try creating a user again later or with different data!`
-    );
+    customNotifications("error", error.code, error.message);
     return error;
   }
 };

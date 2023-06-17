@@ -1,27 +1,13 @@
-import { React, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import {
-  HeartTwoTone,
-  MessageTwoTone,
-  SendOutlined,
-  SaveTwoTone,
-  DeleteTwoTone,
   CloseCircleTwoTone,
+  DeleteTwoTone,
+  HeartTwoTone,
+  SaveTwoTone,
 } from "@ant-design/icons";
-import {
-  Avatar,
-  Card,
-  Skeleton,
-  Switch,
-  Image,
-  Input,
-  Tooltip,
-  Popconfirm,
-} from "antd";
 import "@styles/welcome.css";
-import axios from "axios";
-import { getAuthToken } from "store/auth";
+import { Avatar, Card, Image, Input, Popconfirm, Tooltip } from "antd";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import PostsContext from "@services/PostsContext";
 import { useContext } from "react";
@@ -75,7 +61,6 @@ const Post = (props) => {
                   title={t("posts_delete")}
                   description={t("posts_delete_pop")}
                   onConfirm={() => submitDeleteHandler(props.postId)}
-                  // onCancel={cancel}
                   okText={t("common_yes")}
                   cancelText={t("common_no")}
                 >
