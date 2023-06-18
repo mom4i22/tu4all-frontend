@@ -1,4 +1,4 @@
-import { getUserId } from "@services/auth";
+import { customNotifications } from "@services/helpers";
 import { Button, Form, Input, Modal } from "antd";
 import axios from "axios";
 import { useState } from "react";
@@ -20,22 +20,16 @@ const ChangePasswordModal = (props) => {
     formData.append("password", password);
     if (password === retypedPassword) {
       axios
-        .put(
-          `http://localhost:8080/users/change-password/${getUserId()}`,
-          formData
-        )
+        .put(`http://localhost:8080/users/change-password/${email}`, formData)
         .then((response) => {
           console.log(response.data);
-          alert(response.data);
+          customNotifications("success", response.status, response.data);
         })
         .catch((error) => {
-          console.error(error);
-          alert(
-            `${error}. Please try again! If there is still a problem, wait a bit and refresh and then try again!`
-          );
+          customNotifications("error", error.code, error.message);
         });
     } else {
-      alert("Passwords do not match! Try again!");
+      customNotifications("error", t("error_"), t("error_passwords_not_match"));
     }
     toggleShow();
   };

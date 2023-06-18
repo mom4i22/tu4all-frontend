@@ -1,7 +1,6 @@
-import { React, useState } from "react";
-import { Card } from "antd";
-import "@styles/welcome.css";
 import RegisterForm from "@components/WelcomeComponents/RegisterForm.js";
+import "@styles/welcome.css";
+import { Card } from "antd";
 import { useTranslation } from "react-i18next";
 
 const Register = () => {

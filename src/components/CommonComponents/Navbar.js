@@ -59,12 +59,17 @@ const Navbar = () => {
       "4",
       <ContainerOutlined />
     ),
-    getItem(t("nav_student_help"), "sub1", <RobotOutlined />, [
-      getItem("Option 5", "6"),
-      getItem("Option 6", "7"),
-      getItem("Option 7", "8"),
-      getItem("Option 8", "9"),
-    ]),
+    getItem(
+      <Link to={"/posts"}>{t("nav_student_help")}</Link>,
+      "4",
+      <RobotOutlined />,
+      [
+        getItem("Option 5", "6"),
+        getItem("Option 6", "7"),
+        getItem("Option 7", "8"),
+        getItem("Option 8", "9"),
+      ]
+    ),
     getItem(
       <Link to={"/faq"}>{t("nav_faq")}</Link>,
       "10",

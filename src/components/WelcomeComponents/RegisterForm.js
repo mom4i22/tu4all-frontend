@@ -30,7 +30,14 @@ const RegisterForm = () => {
   const changePassword = (e) => setPassword(e.target.value);
   const changeNickname = (e) => setNickname(e.target.value);
   const handleProfilePicUpload = (picture) => {
-    setProfilePicFile(picture);
+    if (picture) {
+      setProfilePicFile(picture);
+    }
+  };
+  const handleProfilePicRemove = (picture) => {
+    if (picture) {
+      setProfilePicFile(null);
+    }
   };
   const submitHandler = () => {
     register(
@@ -159,7 +166,10 @@ const RegisterForm = () => {
         </Form.Item>
 
         <Form.Item label={t("common_profile_pic_upl")}>
-          <ProfilePicUpload handleProfilePicUpload={handleProfilePicUpload} />
+          <ProfilePicUpload
+            handleProfilePicUpload={handleProfilePicUpload}
+            handleProfilePicRemove={handleProfilePicRemove}
+          />
         </Form.Item>
         <Form.Item className="absolute bottom-0 right-4">
           <Button type="primary" className="bg-customNavy" htmlType="submit">

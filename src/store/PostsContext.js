@@ -64,7 +64,7 @@ export const AppProvider = ({ children }) => {
 
   const createPost = async (desc, pic) => {
     const formData = new FormData();
-    formData.append("content", pic);
+    formData.append("content", pic ? pic : new File([""], "nullFile"));
     formData.append("description", desc);
     try {
       const response = await axios.post(

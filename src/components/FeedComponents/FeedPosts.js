@@ -1,14 +1,14 @@
-import { MehOutlined } from "@ant-design/icons";
+import { MehOutlined, PictureOutlined } from "@ant-design/icons";
 import Comment from "@components/FeedComponents/Comment.js";
 import Post from "@components/FeedComponents/Post.js";
 import NewPost from "@components/PostsComponents/NewPost.js";
 import PostsContext from "@services/PostsContext";
 import { base64ToFile } from "@services/helpers";
+import "@styles/welcome.css";
 import { Button, Result } from "antd";
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import "@styles/welcome.css";
 
 const FeedPosts = (props) => {
   const { t } = useTranslation();
@@ -55,14 +55,26 @@ const FeedPosts = (props) => {
     ) : (
       <div>
         <Result
-          icon={<MehOutlined />}
-          title={t("error_feed_empty")}
+          icon={props.canEdit == "true" ? <PictureOutlined /> : <MehOutlined />}
+          title={
+            props.canEdit == "true" ? (
+              <span className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-customBlue">
+                {t("error_my_posts_empty")}
+              </span>
+            ) : (
+              <span className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-customRed to-customBlue">
+                {t("error_feed_empty")}
+              </span>
+            )
+          }
           extra={
-            <Link to={"/friends"}>
-              <Button className="bg-customBlue text-white">
-                {t("nav_friends")}
-              </Button>
-            </Link>
+            props.canEdit != "true" && (
+              <Link to={"/friends"}>
+                <Button className="bg-customRed text-white font-semibold">
+                  {t("nav_friends")}
+                </Button>
+              </Link>
+            )
           }
         />
       </div>

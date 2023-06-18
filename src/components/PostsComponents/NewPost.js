@@ -20,6 +20,9 @@ const NewPost = (props) => {
   const handleProfilePicUpload = (picture) => {
     setProfilePicFile(picture);
   };
+  const handleProfilePicRemove = (picture) => {
+    setProfilePicFile(picture);
+  };
 
   const submitHandler = (e) => {
     createPost(description, profilePicFile).then((resp) => {
@@ -64,12 +67,14 @@ const NewPost = (props) => {
               placeholder={t("posts_desc")}
               rows={4}
               allowClear
+              maxLength={255}
             />
           </Form.Item>
           <Form.Item className="text-customNavy" name="pic">
             <div className="mx-auto w-1/2">
               <ProfilePicUpload
                 handleProfilePicUpload={handleProfilePicUpload}
+                handleProfilePicRemove={handleProfilePicRemove}
               />
             </div>
           </Form.Item>

@@ -18,6 +18,7 @@ const { Meta } = Card;
 const Post = (props) => {
   const { t } = useTranslation();
   const [description, setDescription] = useState(props.description);
+  const [image, setImage] = useState(props.img);
   const { deletePost, editPost, getUserPosts, likePost, unlikePost } =
     useContext(PostsContext);
   const [isLiked, setIsLiked] = useState(false);
@@ -46,6 +47,12 @@ const Post = (props) => {
         getUserPosts();
       }
     });
+  };
+
+  const handleImageError = () => {
+    console.log("Error loading image");
+    setImage(null);
+    // Handle the error or show a placeholder image
   };
 
   return (
@@ -105,13 +112,15 @@ const Post = (props) => {
                   placeholder={t("posts_edit_desc")}
                   onChange={changeDescription}
                   autoSize
+                  maxLength={255}
                   className="mb-3"
                 />
               )}
 
               <Image
+                onError={handleImageError}
                 className="max-w-xs lg:max-w-md rounded-xl"
-                src={props.img}
+                src={image}
               />
             </div>
           }

@@ -76,10 +76,21 @@ const resources = {
       posts_edit_desc: "You can edit your post's description here..",
       posts_comment: "Write your comment here",
 
+      chat_find_friends:
+        "First add some friends and then enjoy chatting with them anytime!",
+      chat_no_convo:
+        "There is no conversation with this user...type a message below and send it!",
+
       error_feed_empty:
-        "Hmm...your feed seems to be empty. Find some friends and coome back later!",
+        "Hmm...your feed seems to be empty. Find some friends and come back later!",
       error_comments_empty:
         "It looks like there are no comments abvaialble..Be the first one to put your comment!",
+      error_: "Error",
+      error_message_empty:
+        "You can't send a message with empty text, please add text.",
+      error_passwords_not_match: "Oops, paswords dont't match!",
+      error_my_posts_empty:
+        "You can now create your own posts! Dont't waste time and share great moments with your friends!  ",
     },
 
     faq_post_heading: "How to create a post?",

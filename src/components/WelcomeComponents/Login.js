@@ -1,8 +1,7 @@
-import React from "react";
-import { Drawer, Button, Form, Input } from "antd";
+import { authenticate } from "@services/auth";
+import { Button, Drawer, Form, Input } from "antd";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { authenticate } from "@services/auth";
 
 import "react-toastify/dist/ReactToastify.css";
 const Login = (props) => {

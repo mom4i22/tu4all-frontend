@@ -1,9 +1,9 @@
-import { React, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Button } from "antd";
-import "@styles/welcome.css";
-import Login from "@components/WelcomeComponents/Login.js";
 import ChangePassword from "@components/WelcomeComponents/ChangePassword.js";
+import Login from "@components/WelcomeComponents/Login.js";
+import "@styles/welcome.css";
+import { Button } from "antd";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 const Welcome = () => {

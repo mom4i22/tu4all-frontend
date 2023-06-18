@@ -22,9 +22,9 @@ export const base64ToFile = (base64String) => {
   return file;
 };
 
-const errorClass = "bg-customRed/90 font-bold text-white";
-const successClass = "bg-green-400/90 font-bold text-white";
 export const customNotifications = (type, message, text) => {
+  const errorClass = "bg-customRed/90 font-bold text-white";
+  const successClass = "bg-green-400/90 font-bold text-white";
   return notification[type]({
     message: message,
     description: text,

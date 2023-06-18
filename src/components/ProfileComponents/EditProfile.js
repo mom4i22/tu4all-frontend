@@ -1,14 +1,9 @@
-import React, { useState, useContext, useEffect } from "react";
-import { Form, Input, Button, DatePicker, Select, Card, Image } from "antd";
-import { faculties } from "@resources/constants.js";
-import { useTranslation } from "react-i18next";
 import ProfilePicUpload from "@components/CommonComponents/ProfilePicUpload";
-import moment from "moment";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { getAuthToken, getUserId } from "store/auth";
+import { faculties } from "@resources/constants.js";
 import UserContext from "@services/UserContext";
-import { base64ToFile } from "@services/helpers";
+import { Button, Card, DatePicker, Form, Image, Input, Select } from "antd";
+import { useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const EditProfile = () => {
   const { t } = useTranslation();
@@ -33,7 +28,9 @@ const EditProfile = () => {
   };
 
   const handleProfilePicRemove = () => {
-    setProfilePicFile(null);
+    if (profilePicFile) {
+      setProfilePicFile(null);
+    }
   };
 
   useEffect(() => {

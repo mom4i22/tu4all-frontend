@@ -4,13 +4,12 @@ import {
   SendOutlined,
 } from "@ant-design/icons";
 import CommentsContext from "@services/CommentsContext";
+import { getUserAlias } from "@services/auth";
 import { base64ToFile } from "@services/helpers";
 import "@styles/welcome.css";
 import { Avatar, Card, Divider, Input, Popconfirm, Result } from "antd";
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
-import { getUserAlias } from "@services/auth";
 const { TextArea } = Input;
 const { Meta } = Card;
 
@@ -112,6 +111,7 @@ const Comment = (props) => {
                 minRows: 3,
                 maxRows: 5,
               }}
+              maxLength={250}
             />
             <SendOutlined
               className="m-2"

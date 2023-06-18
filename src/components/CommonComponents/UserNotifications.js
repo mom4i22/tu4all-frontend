@@ -1,26 +1,15 @@
-import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { FlagOutlined } from "@ant-design/icons";
-import {
-  Avatar,
-  Card,
-  Skeleton,
-  Switch,
-  Image,
-  Input,
-  Badge,
-  Tooltip,
-} from "antd";
-import "@styles/welcome.css";
-import en from "@images/en.png";
 import bg from "@images/bg.png";
+import en from "@images/en.png";
 import {
-  getUserName,
-  getUserPic,
   getLikes,
   getNewComments,
+  getUserName,
+  getUserPic,
 } from "@services/auth";
 import { base64ToFile } from "@services/helpers";
+import "@styles/welcome.css";
+import { Avatar, Badge, Card, Input, Switch, Tooltip } from "antd";
+import { useTranslation } from "react-i18next";
 const { TextArea } = Input;
 const { Meta } = Card;
 

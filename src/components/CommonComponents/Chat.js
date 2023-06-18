@@ -15,7 +15,9 @@ import { Avatar, Card, Tooltip, Button, Input } from "antd";
 import { WechatFilled, CloseOutlined, SendOutlined } from "@ant-design/icons";
 import FriendsGroup from "./FriendsGroup";
 import FriendsContext from "@services/FriendsContext";
-import { getUserAlias } from "store/auth";
+import { getUserAlias } from "@services/auth";
+import { customNotifications } from "@services/helpers";
+import { useTranslation } from "react-i18next";
 
 const { Meta } = Card;
 const { TextArea } = Input;
@@ -28,10 +30,13 @@ const ChatSection = () => {
   const [message, setMessage] = useState("");
   const [documentId1, setDocId1] = useState("");
   const [documentId2, setDocId2] = useState("");
-  const [messages, setMessages] = useState([]);
   const [trigger, setTrigger] = useState(false);
-  const { myFriends, getFriends } = useContext(FriendsContext);
+  const chatContainerRef = useRef(null);
+
+  const { t } = useTranslation();
   const meUser = getUserAlias();
+
+  const { myFriends, getFriends } = useContext(FriendsContext);
 
   async function checkDocumentExists(documentPath) {
     const documentRef = doc(db, documentPath);
@@ -80,14 +85,23 @@ const ChatSection = () => {
         }
       })
       .catch((error) => {
-        console.log("Error loading chats: ", error);
+        customNotifications("error", error.code, error.message);
       });
   }, [friend, trigger]);
 
+  useEffect(() => {
+    const chatContainer = chatContainerRef.current;
+    if (chatContainer) {
+      const lastMessage = chatContainer.lastElementChild;
+      if (lastMessage) {
+        lastMessage.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  });
   const sendMessage = async (event) => {
     event.preventDefault();
     if (message.trim() === "") {
-      alert("Enter valid message");
+      customNotifications("error", t("error_"), t("error_message_empty"));
       return;
     }
     let obj = {
@@ -123,6 +137,12 @@ const ChatSection = () => {
     setShowChat(true);
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      sendMessage(event);
+    }
+  };
+
   return (
     <div className="fixed sm:bottom-2 lg:bottom-36 md:bottom-20 right-4 md:ml-12 md:w-1/4">
       {showChat && (
@@ -134,9 +154,11 @@ const ChatSection = () => {
       {chat && chat.length > 0 && showChat && (
         <div className="shadow-lg">
           <Card
+            title={friend}
             actions={[
               <div className="m-3 flex items-center" key="chat-input">
                 <TextArea
+                  onKeyDown={handleKeyDown}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder=""
@@ -150,7 +172,10 @@ const ChatSection = () => {
               </div>,
             ]}
           >
-            <div className="overflow-y-auto h-64 md:h-52 no-scrollbar">
+            <div
+              className="overflow-y-auto h-64 md:h-52 no-scrollbar"
+              ref={chatContainerRef}
+            >
               {chat.map((convo, index) => (
                 <div key={index}>
                   {meUser === convo.name ? (
@@ -192,9 +217,11 @@ const ChatSection = () => {
       {(!chat || chat.length === 0) && showChat && (
         <div className="shadow-lg">
           <Card
+            title={<span className="font-bold text-customNavy">{friend}</span>}
             actions={[
               <div className="m-3 flex items-center" key="chat-input">
                 <TextArea
+                  onKeyDown={handleKeyDown}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder=""
@@ -211,7 +238,15 @@ const ChatSection = () => {
               </div>,
             ]}
           >
-            No chat convo
+            {myFriends.length == 0 ? (
+              <span className="font-semibold text-transparent  bg-clip-text bg-gradient-to-r from-purple-500 to-customBlue">
+                {t("chat_find_friends")}
+              </span>
+            ) : (
+              <span className="font-semibold text-transparent  bg-clip-text bg-gradient-to-r from-customBlue to-green-600">
+                {t("chat_no_convo")}
+              </span>
+            )}
           </Card>
         </div>
       )}

@@ -12,7 +12,7 @@ const ListComponent = (props) => {
   const [requested, setRequested] = useState([]);
   const [blocked, setBlocked] = useState([]);
   const [friends, setFriends] = useState([]);
-  const [reloadComponent, setReloadComponent] = useState(false); // State variable for triggering component reload
+  const [reloadComponent, setReloadComponent] = useState(false);
 
   const {
     getPeople,

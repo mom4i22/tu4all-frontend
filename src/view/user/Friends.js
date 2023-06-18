@@ -1,22 +1,13 @@
-import {React, useState}  from 'react';
-import { useTranslation } from "react-i18next";
-import {Button} from 'antd'
-import '@styles/welcome.css'
-import PageLayout from '@components/CommonComponents/Layout.js'
-import FriendsTabs from '@components/FriendsComponents/FriendsTabs.js'
-import { useNavigate } from "react-router-dom";
+import PageLayout from "@components/CommonComponents/Layout.js";
+import FriendsTabs from "@components/FriendsComponents/FriendsTabs.js";
+import "@styles/welcome.css";
 
-const Friends = ()=> {
-  const { t } = useTranslation();
-   const navigate = useNavigate();
-
-
+const Friends = () => {
   return (
-  <>
-
-    <PageLayout inner={FriendsTabs}/>
+    <>
+      <PageLayout inner={FriendsTabs} />
     </>
   );
-}
+};
 
 export default Friends;

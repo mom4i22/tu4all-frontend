@@ -14,23 +14,11 @@ import { useTranslation } from "react-i18next";
 
 const { Header, Content, Footer, Sider } = Layout;
 
-function getItem(label, key, icon, children) {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  };
-}
-
 const PageLayout = (props) => {
   const { t } = useTranslation();
 
   const Inner = props.inner;
   const [collapsed, setCollapsed] = useState(false);
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
 
   const [loading, setLoading] = useState(true);
 

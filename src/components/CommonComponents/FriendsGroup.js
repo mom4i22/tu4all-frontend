@@ -1,7 +1,5 @@
-import { AntDesignOutlined, UserOutlined } from "@ant-design/icons";
-import { Avatar, Divider, Tooltip } from "antd";
-import React, { useEffect } from "react";
 import { base64ToFile } from "@services/helpers";
+import { Avatar } from "antd";
 const FriendsGroup = (props) => {
   let friends = props.friends;
   const sendDataToParent = (alias) => {
