@@ -13,10 +13,10 @@ import "@styles/welcome.css";
 const FeedPosts = (props) => {
   const { t } = useTranslation();
   const { posts, getTimelinePosts, getUserPosts } = useContext(PostsContext);
-  const [showChangePassword, setShowChangePassword] = useState(false);
+  const [showAddNewPost, setShowAddNewPost] = useState(false);
 
-  const togglePassword = () => {
-    setShowChangePassword((p) => !p);
+  const togglePost = () => {
+    setShowAddNewPost((p) => !p);
   };
 
   useEffect(() => {
@@ -75,11 +75,11 @@ const FeedPosts = (props) => {
         <div className="">
           <Button
             className="fixed bg-customRed text-white hover:border-customRed"
-            onClick={togglePassword}
+            onClick={togglePost}
           >
             {t("posts_create")}
           </Button>
-          <NewPost show={showChangePassword} toggleShow={togglePassword} />
+          <NewPost show={showAddNewPost} toggleShow={togglePost} />
         </div>
       )}
       <div className="xs:w-full md:w-3/4 lg:max-h-[47rem] md:max-h-[35rem] overflow-y-auto no-scrollbar mt-10">
