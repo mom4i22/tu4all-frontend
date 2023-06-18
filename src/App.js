@@ -8,6 +8,7 @@ import Feed from "@views/user/Feed.js";
 import Friends from "@views/user/Friends.js";
 import Posts from "@views/user/Posts.js";
 import Profile from "@views/user/Profile.js";
+import Learning from "@views/user/Learning.js";
 import { AppProvider as PostsProvider } from "@services/PostsContext";
 import { AppProvider as CommentsProvider } from "@services/CommentsContext";
 import { AppProvider as FriendsProvider } from "@services/FriendsContext";
@@ -32,6 +33,7 @@ const App = () => {
                 <Route path="/posts" element={<Posts />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/faq" element={<FAQ />} />
+                <Route path="/learning" element={<Learning />} />
               </Route>
             </Routes>
           </UserProvider>

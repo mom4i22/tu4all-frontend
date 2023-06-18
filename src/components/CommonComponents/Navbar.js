@@ -60,15 +60,9 @@ const Navbar = () => {
       <ContainerOutlined />
     ),
     getItem(
-      <Link to={"/posts"}>{t("nav_student_help")}</Link>,
-      "4",
-      <RobotOutlined />,
-      [
-        getItem("Option 5", "6"),
-        getItem("Option 6", "7"),
-        getItem("Option 7", "8"),
-        getItem("Option 8", "9"),
-      ]
+      <Link to={"/learning"}>{t("nav_student_help")}</Link>,
+      "5",
+      <RobotOutlined />
     ),
     getItem(
       <Link to={"/faq"}>{t("nav_faq")}</Link>,

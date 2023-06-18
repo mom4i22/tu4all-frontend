@@ -143,6 +143,22 @@ const ChatSection = () => {
     }
   };
 
+  const convertToDateTime = (timestamp) => {
+    const date = new Date(timestamp);
+    const formattedDate = date.toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
+
+    const formattedTime = date.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    return formattedDate + " " + formattedTime;
+  };
+
   return (
     <div className="fixed sm:bottom-2 lg:bottom-36 md:bottom-20 right-4 md:ml-12 md:w-1/4">
       {showChat && (
@@ -180,8 +196,8 @@ const ChatSection = () => {
                 <div key={index}>
                   {meUser === convo.name ? (
                     <div style={{ textAlign: "right" }}>
-                      <strong className="mr-4">{convo.name}</strong>
-                      <div className="border-2 rounded-t-full rounded-bl-full m-2 w-fit ml-auto bg-customBeige">
+                      <strong className="mr-2">{convo.name}</strong>
+                      <div className="border-2 rounded-t-full rounded-bl-full mt-1 w-fit ml-auto bg-customBeige">
                         <Card.Meta
                           className="p-2"
                           description={
@@ -191,11 +207,14 @@ const ChatSection = () => {
                           }
                         />
                       </div>
+                      <span className="text-xs text-gray-400">
+                        {convertToDateTime(convo.createdAt)}
+                      </span>
                     </div>
                   ) : (
                     <div>
-                      <strong className="ml-4 z-10">{convo.name}</strong>
-                      <div className="border-2 rounded-t-full rounded-br-full m-2 w-fit flex justify-between bg-white">
+                      <strong className="ml-2 z-10">{convo.name}</strong>
+                      <div className="border-2 rounded-t-full rounded-br-full mt-1 w-fit flex justify-between bg-white">
                         <Card.Meta
                           className="p-2"
                           description={
@@ -205,6 +224,9 @@ const ChatSection = () => {
                           }
                         />
                       </div>
+                      <span className="text-xs text-gray-400">
+                        {convertToDateTime(convo.createdAt)}
+                      </span>
                     </div>
                   )}
                 </div>

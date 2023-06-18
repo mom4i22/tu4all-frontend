@@ -52,7 +52,6 @@ const Post = (props) => {
   const handleImageError = () => {
     console.log("Error loading image");
     setImage(null);
-    // Handle the error or show a placeholder image
   };
 
   return (

@@ -96,6 +96,8 @@ const resources = {
     faq_post_heading: "How to create a post?",
     faq_post_content:
       "Navigate to 'Posts' page, then press the button 'Create a new post' and start typing your desired description as well as uploading your desied photo (optional). When fhinished, press 'Create' - your post will appear. ",
+
+    notifications_for: "Notifications for: ",
   },
 
   bg: {
@@ -103,58 +105,61 @@ const resources = {
       welcome_msg1: "Технологията е най-добра, когато свързва хората.",
       welcome_msg2: "- Мат Мъленуег, изпълнителен директор на Automattic",
       welcome_login: "Вход",
-      welcome_signup: "Присъединете се към TU4All!",
+      welcome_signup: "Присъедини се към TU4All!",
       welcome_forgot_password: "Забравена парола?",
 
       common_username: "Потребителско име",
       common_email: "Имейл",
       common_password: "Парола",
-      common_password_re: "Повторете паролата",
-      common_change_password: "Промяна на паролата",
+      common_password_re: "Повтори паролата",
+      common_change_password: "Промени паролата",
       common_submit: "Изпрати",
       common_cancel: "Отказ",
       common_full_name: "Пълно име",
       common_faculty: "Факултет",
       common_faculty_num: "Факултетен номер",
       common_date_born: "Дата на раждане",
-      common_profile_pic_upl: "Качете снимка за профила",
-      common_open_chat: "Отворете чат",
-      common_close_chat: "Затворете чат",
+      common_profile_pic_upl: "Качи профилна снимка",
+      common_open_chat: "Отвори чат",
+      common_close_chat: "Затвори чат",
       common_non_chat: "Няма наличен чат.",
       common_yes: "Да",
       common_no: "Не",
+      common_copyright1: "© 2023 Момчил Тренчев. Всички права запазени.",
+      common_copyright2: "КСИ (Компютърно и софтуерно инженерство), 121210098",
+      common_copyright3: "Връзка към Github",
 
       common_username_required: "Моля, въведете потребителско име!",
       common_email_required: "Моля, въведете валиден имейл!",
       common_password_required: "Моля, въведете парола!",
-      common_name_required: "Моля, въведете име!",
+      common_name_required: "Моля, въведете вашето име!",
       common_faculty_required: "Моля, въведете факултета, в който сте!",
       common_fac_num_required: "Моля, въведете факултетния си номер!",
-      common_date_required: "Моля, въведете датата на раждане!",
+      common_date_required: "Моля, въведете датата на вашето раждане!",
 
       nav_feed: "Публикации",
       nav_friends: "Приятели",
       nav_profile: "Профил",
-      nav_posts: "Мои публикации",
-      nav_student_help: "Студентска помощ",
+      nav_posts: "Публикации",
+      nav_student_help: "Помощ за студенти",
       nav_faq: "ЧЗВ",
       nav_logout: "Изход",
 
-      notifications_fr_req: "Заявки за приятелство",
+      notifications_fr_req: "Приятелски заявки",
       notifications_likes: "Нови харесвания",
       notifications_comm: "Нови коментари",
 
-      friends_req: "Заявки за приятелство",
-      friends_search: "Търсене на потребители",
+      friends_req: "Приятелски заявки",
+      friends_search: "Търсене на хора",
       friends_my_friends: "Моите приятели",
-      friends_type: "Търсете...",
+      friends_type: "Търсене...",
       friends_block: "Блокирай потребител",
-      friends_unblock: "Отблокирай потребител",
+      friends_unblock: "Разблокирай потребител",
       friends_send_req: "Изпрати заявка",
-      friends_unsend_req: "Отмени заявката",
-      friends_accept: "Приеми заявката",
-      friends_decline: "Отклони заявката",
-      friends_remove: "Премахни от приятели",
+      friends_unsend_req: "Откажи заявка",
+      friends_accept: "Приеми заявка",
+      friends_decline: "Отклони заявка",
+      friends_remove: "Премахни приятел",
 
       posts_save: "Запази",
       posts_delete: "Изтрий",
@@ -168,13 +173,31 @@ const resources = {
       posts_picture: "Качи снимка",
       posts_btnsubm: "Създай",
       posts_edit_desc:
-        "Тук можете да редактирате описанието на публикацията си..",
+        "Можете да редактирате описанието на публикацията тук...",
+      posts_comment: "Напишете коментара си тук",
+
+      chat_find_friends:
+        "Първо добавете някои приятели и след това се насладете на разговор с тях по всяко време!",
+      chat_no_convo:
+        "Няма разговор с този потребител...напишете съобщение по-долу и го изпратете!",
 
       error_feed_empty:
-        "Хм... изглежда вашата стена е празна. Намерете приятели и се върнете по-късно!",
+        "Хмм...изглежда вашата стена е празна. Намерете приятели и се върнете по-късно!",
       error_comments_empty:
-        "Изглежда няма налични коментари.. Бъдете първият, който поставя коментар!",
+        "Изглежда няма налични коментари...Бъдете първият, който ще добави коментар!",
+      error_: "Грешка",
+      error_message_empty:
+        "Не можете да изпратите съобщение без текст, моля, добавете текст.",
+      error_passwords_not_match: "Опс, паролите не съвпадат!",
+      error_my_posts_empty:
+        "Вече можете да създавате собствени публикации! Не губете време и споделете страхотни моменти с вашите приятели!",
     },
+
+    faq_post_heading: "Как да създам публикация?",
+    faq_post_content:
+      "Навигирайте до страницата 'Публикации', след което натиснете бутона 'Създай нова публикация' и започнете да пишете желаното описание и да качвате желаната снимка (опционално). Когато приключите, натиснете 'Създай' - вашата публикация ще се появи.",
+
+    notifications_for: "Известия за: ",
   },
 };
 

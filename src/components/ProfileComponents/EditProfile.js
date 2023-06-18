@@ -158,13 +158,17 @@ const EditProfile = () => {
           </div>
           <div>
             <h2 className="text-2xl font-bold">{fullName}</h2>
-            <p className="text-lg font-semibold">Alias: {nickname}</p>
             <p className="text-lg font-semibold">
-              Date of Birth: {dateOfBirth}
+              {t("common_username")}: {nickname}
             </p>
-            <p className="text-lg font-semibold">Faculty: {faculty}</p>
             <p className="text-lg font-semibold">
-              Faculty num: {facultyNumber}
+              {t("common_date_born")}: {dateOfBirth}
+            </p>
+            <p className="text-lg font-semibold">
+              {t("common_faculty")}: {faculty}
+            </p>
+            <p className="text-lg font-semibold">
+              {t("common_faculty_num")}: {facultyNumber}
             </p>
           </div>
         </Card>
