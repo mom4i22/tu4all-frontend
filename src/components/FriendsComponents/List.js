@@ -1,10 +1,11 @@
 import FriendsContext from "@services/FriendsContext";
+import { getUserId } from "@services/auth";
+import { base64ToFile } from "@services/helpers";
 import { Avatar, Button, Divider, Input, List, Skeleton } from "antd";
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { getUserId } from "@services/auth";
-import { base64ToFile } from "@services/helpers";
+import { isAdmin } from "@services/auth";
 const ListComponent = (props) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
@@ -32,7 +33,6 @@ const ListComponent = (props) => {
     }
     setLoading(true);
   };
-
   useEffect(() => {
     loadMoreData();
 
@@ -88,7 +88,7 @@ const ListComponent = (props) => {
     setResults(res ? res : data);
   };
 
-  const sendFriendRequestHandler = (id) => {
+  const handleSendFriendRequest = (id) => {
     sendFriendRequest(id);
     getPeople();
     getFriends();
@@ -142,7 +142,7 @@ const ListComponent = (props) => {
     return friends.includes(email);
   };
 
-  return (
+  return !isAdmin() ? (
     <div
       id="scrollableDiv"
       className="md:w-8/12 xl:w-3/4"
@@ -177,94 +177,98 @@ const ListComponent = (props) => {
             />
           )
         }
-        endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
+        endMessage={<Divider plain>{t("error_all_friends")}</Divider>}
         scrollableTarget="scrollableDiv"
       >
         <List
           dataSource={results}
-          renderItem={(item) => (
-            <List.Item key={item.email}>
-              <List.Item.Meta
-                avatar={
-                  <Avatar
-                    src={URL.createObjectURL(base64ToFile(item.profilePicture))}
-                  />
-                }
-                title={<a href="https://ant.design">{item.alias}</a>}
-                description={item.email}
-              />
-              {props.tab == 2 && (
-                <div>
-                  {isUserBlocked(item.email) ? (
-                    <Button
-                      className="btn btn-primary bg-gray-400 hover:border-gray-300 text-white font-semibold"
-                      onClick={() => unblockUser(item.email)}
-                    >
-                      {t("friends_unblock")}
-                    </Button>
-                  ) : (
-                    <>
+          renderItem={(item) =>
+            item.role === "ROLE_USER" && (
+              <List.Item key={item.email}>
+                <List.Item.Meta
+                  avatar={
+                    <Avatar
+                      src={URL.createObjectURL(
+                        base64ToFile(item.profilePicture)
+                      )}
+                    />
+                  }
+                  title={<a href="https://ant.design">{item.alias}</a>}
+                  description={item.name}
+                />
+                {props.tab == 2 && (
+                  <div>
+                    {isUserBlocked(item.email) ? (
                       <Button
-                        className="btn btn-secondary border-customRed text-customRed font-semibold hover:bg-customRed hover:text-white mr-3"
-                        onClick={() => blockUser(item.email)}
+                        className="btn btn-primary bg-gray-400 hover:border-gray-300 text-white font-semibold"
+                        onClick={() => unblockUser(item.email)}
                       >
-                        {t("friends_block")}
+                        {t("friends_unblock")}
                       </Button>
+                    ) : (
+                      <>
+                        <Button
+                          className="btn btn-secondary border-customRed text-customRed font-semibold hover:bg-customRed hover:text-white mr-3"
+                          onClick={() => blockUser(item.email)}
+                        >
+                          {t("friends_block")}
+                        </Button>
+                        <Button
+                          className="btn btn-primary bg-customNavy text-white font-semibold"
+                          onClick={() => removeUser(item.userId)}
+                        >
+                          {t("friends_remove")}
+                        </Button>
+                      </>
+                    )}
+                  </div>
+                )}
+                {props.tab == 1 && (
+                  <div>
+                    {isUserRequested(item.email) ? (
                       <Button
-                        className="btn btn-primary bg-customNavy text-white font-semibold"
-                        onClick={() => removeUser(item.userId)}
+                        className="btn btn-primary bg-customRed/60 hover:border-customRed text-white font-semibold"
+                        onClick={() => unsendFriendRequest(item.email)}
                       >
-                        {t("friends_remove")}
+                        {t("friends_unsend_req")}
                       </Button>
-                    </>
-                  )}
-                </div>
-              )}
-              {props.tab == 1 && (
-                <div>
-                  {isUserRequested(item.email) ? (
-                    <Button
-                      className="btn btn-primary bg-customRed/60 hover:border-customRed text-white font-semibold"
-                      onClick={() => unsendFriendRequest(item.email)}
-                    >
-                      {t("friends_unsend_req")}
-                    </Button>
-                  ) : (
-                    <Button
-                      className="btn btn-primary bg-customBlue/80 text-white font-semibold"
-                      onClick={() => sendFriendRequestHandler(item.userId)}
-                    >
-                      {t("friends_send_req")}
-                    </Button>
-                  )}
-                </div>
-              )}
-              {props.tab == 3 && (
-                <div>
-                  {!isFriend(item.email) && (
-                    <>
+                    ) : (
                       <Button
-                        className="btn btn-primary border-green-500 bg-green-500 text-white font-semibold hover:bg-green-500 hover:text-white mr-3"
-                        onClick={() => acceptRequest(item.userId)}
+                        className="btn btn-primary bg-customBlue/80 text-white font-semibold"
+                        onClick={() => handleSendFriendRequest(item.userId)}
                       >
-                        {t("friends_accept")}
+                        {t("friends_send_req")}
                       </Button>
-                      <Button
-                        className="btn btn-secondary bg-customRed hover:border-customRed text-white font-semibold"
-                        onClick={() => declineRequest(item.userId)}
-                      >
-                        {t("friends_decline")}
-                      </Button>
-                    </>
-                  )}
-                </div>
-              )}
-            </List.Item>
-          )}
+                    )}
+                  </div>
+                )}
+                {props.tab == 3 && (
+                  <div>
+                    {!isFriend(item.email) && (
+                      <>
+                        <Button
+                          className="btn btn-primary border-green-500 bg-green-500 text-white font-semibold hover:bg-green-500 hover:text-white mr-3"
+                          onClick={() => acceptRequest(item.userId)}
+                        >
+                          {t("friends_accept")}
+                        </Button>
+                        <Button
+                          className="btn btn-secondary bg-customRed hover:border-customRed text-white font-semibold"
+                          onClick={() => declineRequest(item.userId)}
+                        >
+                          {t("friends_decline")}
+                        </Button>
+                      </>
+                    )}
+                  </div>
+                )}
+              </List.Item>
+            )
+          }
         />
       </InfiniteScroll>
     </div>
-  );
+  ) : null;
 };
 
 export default ListComponent;

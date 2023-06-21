@@ -24,7 +24,7 @@ const NewPost = (props) => {
     setProfilePicFile(picture);
   };
 
-  const submitHandler = (e) => {
+  const handleSubmit = (e) => {
     createPost(description, profilePicFile).then((resp) => {
       if (resp.status === 200) {
         getUserPosts();
@@ -53,7 +53,7 @@ const NewPost = (props) => {
           <Button
             key="submit"
             type="primary"
-            onClick={submitHandler}
+            onClick={handleSubmit}
             className="bg-customNavy"
           >
             {t("posts_btnsubm")}

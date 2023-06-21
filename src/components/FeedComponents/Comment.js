@@ -38,7 +38,7 @@ const Comment = (props) => {
       }
     });
   };
-  const submitCommentHandler = (postId, text) => {
+  const handleSubmitComment = (postId, text) => {
     if (postId && text) {
       createComment(postId, text).then((response) => {
         if (response.status === 200) {
@@ -49,7 +49,7 @@ const Comment = (props) => {
     }
   };
 
-  const deleteCommentHandler = (commentId) => {
+  const handleDeleteComment = (commentId) => {
     deleteComment(commentId).then((response) => {
       if (response.status === 200) {
         getCommentsFromStore();
@@ -79,7 +79,7 @@ const Comment = (props) => {
                 placement="right"
                 title={t("posts_delete")}
                 description={t("posts_delete_comment_pop")}
-                onConfirm={() => deleteCommentHandler(comment.commentId)}
+                onConfirm={() => handleDeleteComment(comment.commentId)}
                 okText={t("common_yes")}
                 cancelText={t("common_no")}
               >
@@ -116,7 +116,7 @@ const Comment = (props) => {
             <SendOutlined
               className="m-2"
               onClick={() => {
-                submitCommentHandler(postId, text);
+                handleSubmitComment(postId, text);
               }}
             />
           </div>,

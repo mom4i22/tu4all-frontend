@@ -41,7 +41,7 @@ const Post = (props) => {
     });
   };
 
-  const submitDeleteHandler = (postId) => {
+  const handleSubmitDelete = (postId) => {
     deletePost(postId).then((resp) => {
       if (resp.status === 200) {
         getUserPosts();
@@ -66,7 +66,7 @@ const Post = (props) => {
                   placement="top"
                   title={t("posts_delete")}
                   description={t("posts_delete_pop")}
-                  onConfirm={() => submitDeleteHandler(props.postId)}
+                  onConfirm={() => handleSubmitDelete(props.postId)}
                   okText={t("common_yes")}
                   cancelText={t("common_no")}
                 >

@@ -4,14 +4,13 @@ import {
   setDoc,
   updateDoc,
   arrayUnion,
-  serverTimestamp,
   getDocs,
   getDoc,
 } from "firebase/firestore";
 
 import { db } from "@root/firebase";
 import React, { useState, useEffect, useRef, useContext } from "react";
-import { Avatar, Card, Tooltip, Button, Input } from "antd";
+import { Card, Tooltip, Button, Input } from "antd";
 import { WechatFilled, CloseOutlined, SendOutlined } from "@ant-design/icons";
 import FriendsGroup from "./FriendsGroup";
 import FriendsContext from "@services/FriendsContext";
@@ -68,11 +67,11 @@ const ChatSection = () => {
       }
     });
   }, []);
+
   useEffect(() => {
     const messagesCollection = collection(db, "messages");
     getDocs(messagesCollection)
       .then((querySnapshot) => {
-        console.log(documentId1, documentId2);
         const found = querySnapshot.docs.find(
           (doc) => doc.id === documentId1 || doc.id === documentId2
         );
@@ -243,6 +242,7 @@ const ChatSection = () => {
             actions={[
               <div className="m-3 flex items-center" key="chat-input">
                 <TextArea
+                  disabled={myFriends.length === 0}
                   onKeyDown={handleKeyDown}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
@@ -253,10 +253,12 @@ const ChatSection = () => {
                     maxRows: 3,
                   }}
                 />
-                <SendOutlined
-                  className="m-2"
-                  onClick={(event) => sendMessage(event)}
-                />
+                {myFriends != 0 && (
+                  <SendOutlined
+                    className="m-2"
+                    onClick={(event) => sendMessage(event)}
+                  />
+                )}
               </div>,
             ]}
           >

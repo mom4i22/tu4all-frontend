@@ -1,22 +1,18 @@
 import {
-  HomeOutlined,
   ContainerOutlined,
+  HomeOutlined,
+  LogoutOutlined,
+  QuestionCircleOutlined,
+  RobotOutlined,
   TeamOutlined,
   UserOutlined,
-  RobotOutlined,
-  QuestionCircleOutlined,
-  LogoutOutlined,
-  EyeInvisibleOutlined,
-  EyeOutlined,
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
 } from "@ant-design/icons";
-import { Button, Menu } from "antd";
+import { clearStorage } from "@services/auth";
+import { Menu } from "antd";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { clearStorage } from "@services/auth";
+import { Link, useNavigate } from "react-router-dom";
+import { isAdmin } from "@services/auth";
 function getItem(label, key, icon, children, type) {
   return {
     key,
@@ -83,6 +79,27 @@ const Navbar = () => {
       <LogoutOutlined />
     ),
   ];
+
+  const adminItems = [
+    getItem(
+      <Link to={"/learning"}>{t("nav_student_help")}</Link>,
+      "5",
+      <RobotOutlined />
+    ),
+
+    getItem(
+      <Link
+        to={"/"}
+        onClick={() => {
+          clearStorage();
+        }}
+      >
+        {t("nav_logout")}
+      </Link>,
+      "11",
+      <LogoutOutlined />
+    ),
+  ];
   return (
     <>
       <Menu
@@ -90,7 +107,7 @@ const Navbar = () => {
         theme="dark"
         className="bg-customBlue"
         collapsed={collapsed.toString()}
-        items={items}
+        items={!isAdmin() ? items : adminItems}
       />
     </>
   );

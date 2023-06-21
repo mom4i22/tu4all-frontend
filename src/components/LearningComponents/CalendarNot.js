@@ -1,6 +1,7 @@
-import { Badge, Calendar, Card, theme } from "antd";
+import { Badge, Calendar, Card, theme, Button, Tooltip } from "antd";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { isAdmin } from "store/auth";
 const onPanelChange = (value, mode) => {
   console.log(value.format("YYYY-MM-DD"), mode);
 };
@@ -29,7 +30,7 @@ const CalendarNot = () => {
     const notificationCount = notifications[dateKey1]
       ? notifications[dateKey1].length
       : null;
-    if (notificationCount) {
+    if (notificationCount && !isAdmin()) {
       return (
         <div>
           {date.format("D")}
@@ -57,6 +58,13 @@ const CalendarNot = () => {
           fullCellRender={dateCellRender}
         />
       </div>
+      {isAdmin() && (
+        <div>
+          <Tooltip title={t("feature_not_available")}>
+            <Button>{t("students_add_notif")}</Button>
+          </Tooltip>
+        </div>
+      )}
       <div className="w-3/5">
         {cardVisible && (
           <Card title={dateKey}>

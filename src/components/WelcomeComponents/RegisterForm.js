@@ -19,6 +19,7 @@ const RegisterForm = () => {
   const [facultyNumber, setFacultyNumber] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [profilePicFile, setProfilePicFile] = useState(null);
+  const [isTeacher, setIsTeacher] = useState(false);
 
   const changeName = (e) => setFullName(e.target.value);
   const changeFaculty = (value) => {
@@ -26,7 +27,17 @@ const RegisterForm = () => {
   };
   const changeFacNumber = (e) => setFacultyNumber(e.target.value);
   const changeDateOfBirth = (date) => setDateOfBirth(date.format("YYYY-MM-DD"));
-  const changeEmail = (e) => setEmail(e.target.value);
+  const changeEmail = (e) => {
+    const email = e.target.value;
+    setEmail(email);
+    if (email.includes("teacher")) {
+      setIsTeacher(true);
+      setFacultyNumber("0");
+    } else {
+      setIsTeacher(false);
+      setFacultyNumber("");
+    }
+  };
   const changePassword = (e) => setPassword(e.target.value);
   const changeNickname = (e) => setNickname(e.target.value);
   const handleProfilePicUpload = (picture) => {
@@ -39,7 +50,7 @@ const RegisterForm = () => {
       setProfilePicFile(null);
     }
   };
-  const submitHandler = () => {
+  const handleSubmit = () => {
     register(
       nickname,
       fullName,
@@ -69,7 +80,7 @@ const RegisterForm = () => {
         style={{
           maxWidth: 600,
         }}
-        onFinish={submitHandler}
+        onFinish={handleSubmit}
       >
         <Form.Item
           name="name"
@@ -139,18 +150,20 @@ const RegisterForm = () => {
           />
         </Form.Item>
 
-        <Form.Item
-          name="facultyNum"
-          label={t("common_faculty_num")}
-          rules={[
-            {
-              required: true,
-              message: t("common_fac_num_required"),
-            },
-          ]}
-        >
-          <Input onChange={changeFacNumber} />
-        </Form.Item>
+        {!isTeacher && (
+          <Form.Item
+            name="facultyNum"
+            label={t("common_faculty_num")}
+            rules={[
+              {
+                required: true,
+                message: t("common_fac_num_required"),
+              },
+            ]}
+          >
+            <Input onChange={changeFacNumber} />
+          </Form.Item>
+        )}
 
         <Form.Item
           name="dateOfBirth"

@@ -4,7 +4,6 @@ import UserContext from "@services/UserContext";
 import { Button, Card, DatePicker, Form, Image, Input, Select } from "antd";
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-
 const EditProfile = () => {
   const { t } = useTranslation();
 
@@ -43,8 +42,8 @@ const EditProfile = () => {
     });
   }, []);
 
-  const submitHandler = () => {
-    editUser();
+  const handleSubmit = () => {
+    editUser(fullName, dateOfBirth, faculty, facultyNumber, profilePicFile);
   };
 
   return (
@@ -52,7 +51,7 @@ const EditProfile = () => {
       <div className="w-2/5">
         <Form
           labelCol={{
-            span: 6,
+            span: 7,
           }}
           wrapperCol={{
             span: 14,
@@ -69,20 +68,7 @@ const EditProfile = () => {
               },
             ]}
           >
-            <Input onChange={changeName} />
-          </Form.Item>
-
-          <Form.Item
-            label={<label>{t("common_username")}</label>}
-            name="username"
-            rules={[
-              {
-                required: true,
-                message: t("common_username_required"),
-              },
-            ]}
-          >
-            <Input onChange={changeNickname} />
+            <Input onChange={changeName} value={fullName} />
           </Form.Item>
 
           <Form.Item
@@ -112,7 +98,7 @@ const EditProfile = () => {
               },
             ]}
           >
-            <Input onChange={changeFacNumber} />
+            <Input onChange={changeFacNumber} value={facultyNumber} />
           </Form.Item>
 
           <Form.Item
@@ -125,7 +111,7 @@ const EditProfile = () => {
               },
             ]}
           >
-            <DatePicker onChange={changeDateOfBirth} />
+            <DatePicker onChange={changeDateOfBirth} value={dateOfBirth} />
           </Form.Item>
 
           <Form.Item label={t("common_profile_pic_upl")}>
@@ -142,7 +128,7 @@ const EditProfile = () => {
               type="primary"
               size="large"
               className="bg-customRed flex justify-end"
-              onClick={submitHandler}
+              onClick={handleSubmit}
             >
               {t("common_submit")}
             </Button>

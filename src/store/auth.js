@@ -54,6 +54,17 @@ export const getNewComments = () => {
   return sessionStorage.getItem("comments");
 };
 
+export const setUserRole = (role) => {
+  return sessionStorage.setItem("role", role);
+};
+export const getUserRole = () => {
+  return sessionStorage.getItem("role");
+};
+
+export const isAdmin = () => {
+  return sessionStorage.getItem("role") === "ROLE_ADMIN";
+};
+
 export const clearStorage = () => {
   sessionStorage.clear();
 };
@@ -80,6 +91,7 @@ export const authenticate = async (email, password) => {
     setUserPic(response.data.profilePic);
     setLikes(response.data.likeNotifications);
     setNewComments(response.data.commentNotifications);
+    setUserRole(response.data.role);
     return response;
   } catch (error) {
     customNotifications("error", error.code, error.message);
@@ -104,7 +116,7 @@ export const register = async (
   formData.append("password", password);
   formData.append("dateOfBirth", dateOfBirth);
   formData.append("faculty", faculty);
-  formData.append("facultyNumber", facultyNumber);
+  formData.append("facultyNumber", facultyNumber != "0" ? facultyNumber : null);
   formData.append("profilePic", profilePicFile);
 
   try {

@@ -91,15 +91,33 @@ const resources = {
       error_passwords_not_match: "Oops, paswords dont't match!",
       error_my_posts_empty:
         "You can now create your own posts! Dont't waste time and share great moments with your friends!  ",
+
+      faq_post_heading: "How to create a post?",
+      faq_post_content:
+        "navigate to 'Posts' page, then press the button 'Create a new post' and start typing your desired description as well as uploading your desied photo (optional). When fhinished, press 'Create' - your post will appear. ",
+
+      error: "ERROR",
+      success: "SUCCESS",
+      warning: "WARNING",
+      welcome_captcha: "Please, validate captcha",
+      error_all_friends: "It is all, nothing more 🤐",
+      to_be_developed:
+        "This functionality is still in progress, soon to be developed!",
+      feature_not_available: "At this moment this feature is unavailable ",
+
+      students_name: "Name",
+      students_faculty: "Faculty",
+      students_facultyNumber: "Faculty number",
+      students_students: "Students",
+      students_nonStudents: "Non-students",
+      students_enroll: "Enroll",
+      students_remove: "Remove",
+      students_add: "Add new course",
+      students_subj: "Subject",
+      students_desc: "Description",
+      students_add_notif: "Add notification",
     },
-
-    faq_post_heading: "How to create a post?",
-    faq_post_content:
-      "Navigate to 'Posts' page, then press the button 'Create a new post' and start typing your desired description as well as uploading your desied photo (optional). When fhinished, press 'Create' - your post will appear. ",
-
-    notifications_for: "Notifications for: ",
   },
-
   bg: {
     translation: {
       welcome_msg1: "Технологията е най-добра, когато свързва хората.",
@@ -191,13 +209,32 @@ const resources = {
       error_passwords_not_match: "Опс, паролите не съвпадат!",
       error_my_posts_empty:
         "Вече можете да създавате собствени публикации! Не губете време и споделете страхотни моменти с вашите приятели!",
+
+      faq_post_heading: "Как да създам публикация?",
+      faq_post_content:
+        "Навигирайте до страницата 'Публикации', след което натиснете бутона 'Създай нова публикация' и започнете да пишете желаното описание и да качвате желаната снимка (опционално). Когато приключите, натиснете 'Създай' - вашата публикация ще се появи.",
+
+      error: "ГРЕШКА",
+      success: "УСПЕХ",
+      warning: "ПРЕДУПРЕЖДЕНИЕ",
+      welcome_captcha: "Моля, потвърдете капчата",
+      error_all_friends: "Това е всичко, няма повече 🤐",
+      to_be_developed:
+        "Тази функционалност все още е в процес на разработка, скоро ще бъде разработена!",
+      feature_not_available: "В момента тази функция не е налична",
+
+      students_name: "Име",
+      students_faculty: "Факултет",
+      students_facultyNumber: "Факултетен номер",
+      students_students: "Студенти в курса",
+      students_nonStudents: "Студенти",
+      students_enroll: "Записване",
+      students_remove: "Премахване",
+      students_add: "Добавяне на нов курс",
+      students_subj: "Предмет",
+      students_desc: "Описание",
+      students_add_notif: "Добавяне на известие",
     },
-
-    faq_post_heading: "Как да създам публикация?",
-    faq_post_content:
-      "Навигирайте до страницата 'Публикации', след което натиснете бутона 'Създай нова публикация' и започнете да пишете желаното описание и да качвате желаната снимка (опционално). Когато приключите, натиснете 'Създай' - вашата публикация ще се появи.",
-
-    notifications_for: "Известия за: ",
   },
 };
 

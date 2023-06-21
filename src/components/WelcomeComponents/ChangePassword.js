@@ -15,14 +15,13 @@ const ChangePasswordModal = (props) => {
   const changePassword = (e) => setPassword(e.target.value);
   const changeRetypedPassword = (e) => setRetypedPassword(e.target.value);
 
-  const submitHandler = (e) => {
+  const handleSubmit = (e) => {
     const formData = new FormData();
     formData.append("password", password);
     if (password === retypedPassword) {
       axios
         .put(`http://localhost:8080/users/change-password/${email}`, formData)
         .then((response) => {
-          console.log(response.data);
           customNotifications("success", response.status, response.data);
         })
         .catch((error) => {
@@ -55,7 +54,7 @@ const ChangePasswordModal = (props) => {
           <Button
             key="submit"
             type="primary"
-            onClick={submitHandler}
+            onClick={handleSubmit}
             className="bg-customRed"
           >
             {t("common_submit")}

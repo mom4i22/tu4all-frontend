@@ -2,23 +2,35 @@ import { authenticate } from "@services/auth";
 import { Button, Drawer, Form, Input } from "antd";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import ReCAPTCHA from "react-google-recaptcha";
 
 import "react-toastify/dist/ReactToastify.css";
+import { useState } from "react";
+import { customNotifications } from "@services/helpers";
 const Login = (props) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
   const { show, toggleShow } = props;
+  const [captcha, setCaptcha] = useState("");
 
   const onFinish = (values) => {
-    authenticate(values.username, values.password).then((resp) => {
-      if (resp.status == 200) {
-        navigate("/feed");
-      }
-    });
+    if (captcha) {
+      authenticate(values.username, values.password).then((resp) => {
+        if (resp.status == 200) {
+          navigate("/feed");
+        }
+      });
+    } else {
+      customNotifications("warning", 100, t("welcome_captcha"));
+    }
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
+  };
+
+  const onChangeCaptcha = (value) => {
+    setCaptcha(value);
   };
   return (
     <>
@@ -79,6 +91,18 @@ const Login = (props) => {
               <Input.Password />
             </Form.Item>
 
+            <Form.Item
+              wrapperCol={{
+                offset: 2,
+                span: 10,
+              }}
+            >
+              <ReCAPTCHA
+                sitekey="6LfDhrQmAAAAALtF0pY4HK-23kXvxGZSPXDblno3"
+                onChange={onChangeCaptcha}
+              />
+              ,
+            </Form.Item>
             <Form.Item
               wrapperCol={{
                 offset: 8,

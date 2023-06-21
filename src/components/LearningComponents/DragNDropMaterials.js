@@ -1,10 +1,11 @@
-import { InboxOutlined } from "@ant-design/icons";
-import { message, Upload } from "antd";
+import React from "react";
+import { WarningOutlined } from "@ant-design/icons";
+import { message, Tooltip, Upload } from "antd";
+import { useTranslation } from "react-i18next";
 const { Dragger } = Upload;
 const props = {
   name: "file",
   multiple: true,
-  action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
   onChange(info) {
     const { status } = info.file;
     if (status !== "uploading") {
@@ -20,16 +21,22 @@ const props = {
     console.log("Dropped files", e.dataTransfer.files);
   },
 };
-const DragNDropMaterials = () => (
-  <Dragger {...props}>
-    <p className="ant-upload-drag-icon">
-      <InboxOutlined />
-    </p>
-    <p className="ant-upload-text">Click or drag file to this area to upload</p>
-    <p className="ant-upload-hint">
-      Support for a single or bulk upload. Strictly prohibited from uploading
-      company data or other banned files.
-    </p>
-  </Dragger>
-);
+
+const DragNDropMaterials = ({ onData }) => {
+  const { t } = useTranslation();
+  const handleData = (data) => {
+    onData(data);
+  };
+
+  return (
+    <Dragger {...props} onChange={handleData} disabled>
+      <p className="ant-upload-drag-icon">
+        <WarningOutlined />
+      </p>
+      <p className="ant-upload-text">{t("feature_not_available")} </p>
+      <p className="ant-upload-hint">{t("to_be_developed")}</p>
+    </Dragger>
+  );
+};
+
 export default DragNDropMaterials;

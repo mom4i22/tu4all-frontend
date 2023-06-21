@@ -22,7 +22,7 @@ const UserNotifications = (props) => {
     return i18n.language == "en" ? "bg" : "en";
   };
 
-  const changeLanguageHandler = () => {
+  const handleLanguageChange = () => {
     currentLang = currentLangTern();
     i18n.changeLanguage(currentLang);
   };
@@ -70,7 +70,7 @@ const UserNotifications = (props) => {
                   </Tooltip>
                   <Switch
                     className="bg-customBeige"
-                    onChange={changeLanguageHandler}
+                    onChange={handleLanguageChange}
                     unCheckedChildren={<img src={bg} className="w-5 h-5" />}
                     checkedChildren={
                       <img src={en} className="w-5 h-5 mt-0.5" />

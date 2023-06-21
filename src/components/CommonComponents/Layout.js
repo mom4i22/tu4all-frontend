@@ -1,16 +1,12 @@
-import {
-  FileOutlined,
-  PieChartOutlined,
-  UserOutlined,
-  GithubOutlined,
-} from "@ant-design/icons";
-import { Breadcrumb, Layout, Menu, theme, Spin } from "antd";
+import { GithubOutlined } from "@ant-design/icons";
+import { Layout, Spin } from "antd";
 import { useState, useEffect } from "react";
 import Navbar from "@components/CommonComponents/Navbar.js";
 import Chat from "@components/CommonComponents/Chat.js";
 import UserNotifications from "@components/CommonComponents/UserNotifications.js";
 import "@styles/welcome.css";
 import { useTranslation } from "react-i18next";
+import { isAdmin } from "@services/auth";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -56,7 +52,7 @@ const PageLayout = (props) => {
                 ) : (
                   <Inner />
                 )}
-                <Chat />
+                {!isAdmin() ? <Chat /> : null}
               </>
             )}
           </div>
