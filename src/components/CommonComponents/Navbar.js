@@ -13,6 +13,8 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { isAdmin } from "@services/auth";
+import Logo from "@resources/images/logo.png";
+
 function getItem(label, key, icon, children, type) {
   return {
     key,
@@ -109,6 +111,7 @@ const Navbar = () => {
         collapsed={collapsed.toString()}
         items={!isAdmin() ? items : adminItems}
       />
+      <img src={Logo} className=" ml-5 mt-64 w-1/2" />
     </>
   );
 };

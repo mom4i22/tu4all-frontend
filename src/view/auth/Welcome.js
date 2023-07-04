@@ -1,6 +1,7 @@
 import ChangePassword from "@components/WelcomeComponents/ChangePassword.js";
 import Login from "@components/WelcomeComponents/Login.js";
 import "@styles/welcome.css";
+import Logo from "@resources/images/logo.png";
 import { Button } from "antd";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -25,9 +26,10 @@ const Welcome = () => {
   return (
     <>
       <div className="split left"></div>
-      <div className="split right">
+      <div className="split right overflow-hidden	">
         <div className="center">
           <div className="btns-center">
+            <img src={Logo} className="w-1/2 overflow-auto" />
             <p className="italic text-white">
               <span className="font-bold	">"{t("welcome_msg1")}"</span>
               {t("welcome_msg2")}
