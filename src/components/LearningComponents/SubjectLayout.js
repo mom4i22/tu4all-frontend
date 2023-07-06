@@ -97,17 +97,21 @@ const SubjectLayout = (props) => {
   useEffect(() => {
     if (isAdmin()) {
       getAllNonStudents(course.courseId).then((resp) => {
-        if (resp.length > 0) {
+        if (resp.length > students.length) {
+          setNonStudents(resp);
+        } else if (nonStudents.length === 0 || nonStudents.length === 1) {
           setNonStudents(resp);
         }
       });
       getStudentsForCourse(course.courseId).then((resp) => {
-        if (resp.length > 0) {
+        if (resp.length > nonStudents.length) {
+          setStudentsInCourse(resp);
+        } else if (nonStudents.length === 0 || nonStudents.length === 1) {
           setStudentsInCourse(resp);
         }
       });
     }
-  }, [trigger]);
+  }, [students.length, nonStudents.length]);
 
   return (
     <>
